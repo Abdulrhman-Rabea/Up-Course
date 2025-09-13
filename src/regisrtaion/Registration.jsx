@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { signUpWithEmail, mapAuthError } from "../lib/auth"; // عدّل المسار حسب مشروعك
+import { signUpWithEmail, mapAuthError } from "../lib/auth";
 import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 const MyButton = ({ children, disabled, ...restProps }) => {
