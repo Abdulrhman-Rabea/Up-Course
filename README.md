@@ -1,11 +1,3 @@
-Perfect 👍 I’ll update the **README.md** with:
-
-* The correct **live link** → `https://up-course-1.vercel.app/`
-* A **Team section** with GitHub profiles for Ahmed, Doha, and Hoda.
-
-Here’s the improved version 👇
-
----
 
 # 🚀 Up-Course
 
@@ -102,5 +94,3 @@ This project is licensed under the **MIT License**.
 🔥 **Unlock your creative potential with Up-Course!**
 
 ---
-
-Would you like me to also **add fancy badges** (for React, Vercel deploy, GitHub contributors) at the top of the README to make it stand out more?
