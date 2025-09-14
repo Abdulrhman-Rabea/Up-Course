@@ -73,8 +73,25 @@ function Home() {
 							</h3>
 							<p>Learn from Industry Experts and Enhance Your Skills.</p>
 							<div className="mt-10 flex items-center justify-center gap-x-6">
-								<MyButton bgColor="#ff9500">Explore Courses</MyButton>
-								<MyButton bgColor="#E4E4E7" textColor={"text-black"}>
+								<MyButton
+									bgColor="#ff9500"
+									onClick={() => {
+										document
+											.getElementById("CoursesSec")
+											.scrollIntoView({ behavior: "smooth" });
+									}}
+								>
+									Explore Courses
+								</MyButton>
+								<MyButton
+									bgColor="#E4E4E7"
+									textColor={"text-black-500"}
+									onClick={() => {
+										document
+											.getElementById("PriceSec")
+											.scrollIntoView({ behavior: "smooth" });
+									}}
+								>
 									view pricing
 								</MyButton>
 							</div>
@@ -242,8 +259,10 @@ function Home() {
 					title="UI/UX Design"
 					description="Master the art of creating intuitive user interfaces and enhancing user experiences."
 					buttonText="Get it Now"
+					id=""
 				/>
 			</CardsContainer>
+
 			{/* Testimonial section */}
 			<CardsContainer
 				title={<SectionTitle>Our Testimonials</SectionTitle>}

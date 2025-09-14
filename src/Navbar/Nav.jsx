@@ -104,9 +104,11 @@ export default function Nav() {
 							</Link>
 
 							<div className="relative ml-3">
-								<MyButton bgColor="#ff9500" textColor="text-gray-800">
-									login
-								</MyButton>
+								<Link to="login">
+									<MyButton bgColor="#ff9500" textColor="text-gray-800">
+										login
+									</MyButton>
+								</Link>
 							</div>
 						</div>
 					</div>
