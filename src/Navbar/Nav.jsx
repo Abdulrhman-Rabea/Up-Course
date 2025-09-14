@@ -1,8 +1,13 @@
 import React from "react";
 import MyButton from "../Component/MyButton";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Nav() {
+	const { i18n } = useTranslation();
+	const toggleLang = () => {
+		i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+	};
 	return (
 		<>
 			<p className="bg-[#ff9500] text-white m-0 p-2 text-center ">
@@ -95,6 +100,14 @@ export default function Nav() {
 									</Link>
 								</div>
 							</div>
+						</div>
+						<div className="toggleLanguage">
+							<button
+								onClick={toggleLang}
+								className="bg-[#ff9500] text-white px-3 py-1 rounded"
+							>
+								{i18n.language === "en" ? "AR" : "EN"}
+							</button>
 						</div>
 						<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 							<Link to="register">
