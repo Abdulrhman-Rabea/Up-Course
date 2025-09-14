@@ -1,6 +1,8 @@
+// src/regisrtaion/Registration.jsx
 import React, { useState } from "react";
 import { signUpWithEmail, mapAuthError } from "../lib/auth";
 import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
@@ -17,7 +19,6 @@ const MyButton = ({ children, disabled, ...restProps }) => {
 function Registration() {
   const db = getFirestore();
 
- 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -46,25 +47,7 @@ function Registration() {
   const emailRegex = /\S+@\S+\.\S+/;
   const passRegex = /^.{6,}$/;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /////////////// Handle Form Input /////////////////////////////////////
-
-
-
-
 
   const handleform = (e) => {
     const { name, value, checked } = e.target;
@@ -81,8 +64,8 @@ function Registration() {
         emailErr: !value
           ? "Email is required"
           : !emailRegex.test(value)
-            ? "Invalid email format"
-            : "",
+          ? "Invalid email format"
+          : "",
       }));
     }
 
@@ -93,8 +76,8 @@ function Registration() {
         passErr: !value
           ? "Password is required"
           : !passRegex.test(value)
-            ? "Password must be at least 6 characters"
-            : "",
+          ? "Password must be at least 6 characters"
+          : "",
       }));
     }
 
@@ -139,83 +122,66 @@ function Registration() {
     }
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /////////////// Handle Submit when press on Register Button /////////////////////////////////////
-  
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSubmitErr("");
-  setSubmitOk("");
 
-  if (!name || !email || !pass || !rePass) {
-    setSubmitErr("Please fill all required fields.");
-    return;
-  }
-  if (errors.nameErr || errors.emailErr || errors.passErr || errors.rePassErr) {
-    setSubmitErr("Please fix the errors first.");
-    return;
-  }
-  if (isAdmin) {
-    if (!adminId.trim()) {
-      setErrors((p) => ({ ...p, adminIdErr: "Please enter Admin ID" }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitErr("");
+    setSubmitOk("");
+
+    if (!name || !email || !pass || !rePass) {
+      setSubmitErr("Please fill all required fields.");
       return;
     }
-    if (!isAdminIdAllowed(adminId)) {
-      setErrors((p) => ({ ...p, adminIdErr: "Admin ID is not allowed" }));
+    if (errors.nameErr || errors.emailErr || errors.passErr || errors.rePassErr) {
+      setSubmitErr("Please fix the errors first.");
       return;
     }
-  }
+    if (isAdmin) {
+      if (!adminId.trim()) {
+        setErrors((p) => ({ ...p, adminIdErr: "Please enter Admin ID" }));
+        return;
+      }
+      if (!isAdminIdAllowed(adminId)) {
+        setErrors((p) => ({ ...p, adminIdErr: "Admin ID is not allowed" }));
+        return;
+      }
+    }
 
-  try {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const user = await signUpWithEmail({
-      email,
-      password: pass,
-      displayName: name,
-    });
-
-    /////// User Role
-    await setDoc(
-      doc(db, "users", user.uid),
-      {
-        displayName: name,
+      const user = await signUpWithEmail({
         email,
-        role: isAdmin ? "admin" : "student",
-        createdAt: serverTimestamp(),
-      },
-      { merge: true }
-    );
+        password: pass,
+        displayName: name,
+      });
 
-    setSubmitOk("Email has been sent. Please check your inbox.");
-        /////////////// Should Active Email Before signin  
-       ///////////////  await signOut(getAuth());
-  } catch (e) {
-    setSubmitErr(mapAuthError(e?.code));
-  } finally {
-    setIsLoading(false);
-  }
-};
+      /////// User Role
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          displayName: name,
+          email,
+          role: isAdmin ? "admin" : "student",
+          createdAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
 
+      setSubmitOk("Email has been sent. Please check your inbox.");
+      // should activate email before sign-in if needed
+    } catch (e) {
+      setSubmitErr(mapAuthError(e?.code));
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const hasErrors = Object.values(errors).some(Boolean);
   const requiredFilled = name && email && pass && rePass && (!isAdmin || adminId);
   const isAdminIdValid = !isAdmin || isAdminIdAllowed(adminId);
   const disableSubmit = hasErrors || !requiredFilled || !isAdminIdValid || isLoading;
-
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -323,6 +289,13 @@ const handleSubmit = async (e) => {
 
           {submitErr && <p className="text-red-500 text-xs italic mt-3">{submitErr}</p>}
           {submitOk && <p className="text-green-600 text-sm mt-3">{submitOk}</p>}
+
+          <div className="text-center text-sm mt-4 text-gray-400">
+            Already have an account?{" "}
+            <Link to="/login" className="text-black hover:text-black cursor-pointer">
+              login
+            </Link>
+          </div>
         </form>
       </div>
     </div>

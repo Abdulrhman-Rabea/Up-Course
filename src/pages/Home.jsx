@@ -73,7 +73,7 @@ function Home() {
 							</h3>
 							<p>Learn from Industry Experts and Enhance Your Skills.</p>
 							<div className="mt-10 flex items-center justify-center gap-x-6">
-								<MyButton bgColor="#ff9500">Explore Courses</MyButton>
+								<MyButton bgColor="#ff9500" textColor={"text-white"}>Explore Courses</MyButton>
 								<MyButton bgColor="#E4E4E7" textColor={"text-black"}>
 									view pricing
 								</MyButton>
