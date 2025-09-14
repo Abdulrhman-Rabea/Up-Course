@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
+=======
+import { signUpWithEmail, mapAuthError } from "../lib/auth";
+import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { Link } from "react-router-dom";
+
+>>>>>>> caf1ea7 (footer)
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
     <button
@@ -68,6 +75,7 @@ function Registration() {
     }
   };
   return (
+<<<<<<< HEAD
     <div
       className="flex justify-center items-center min-h-screen "
     >
@@ -75,6 +83,14 @@ function Registration() {
       <div
         className="oklch(98.5% 0 0) shadow-lg p-8 rounded-2xl w-96 text-white"
       >
+=======
+     <>
+    
+      
+    
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="oklch(98.5% 0 0) shadow-lg p-8 rounded-2xl w-96 text-white">
+>>>>>>> caf1ea7 (footer)
         <h3 className="text-center mb-6 text-black font-bold text-2xl">Register</h3>
         <form>
       
@@ -136,6 +152,7 @@ function Registration() {
               <p className="text-red-500 text-xs italic mt-2">{errors.rePassErr}</p>
             )}
           </div>
+<<<<<<< HEAD
           <MyButton
             disabled={
               errors.nameErr ||
@@ -147,9 +164,74 @@ function Registration() {
           >
             Register
           </MyButton>
+=======
+
+          <div className="mb-4">
+            <span className="block text-gray-400 text-sm font-bold mb-2">Role</span>
+            <div className="flex items-center gap-6">
+              <label className="inline-flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="roleStudent"
+                  checked={isStudent}
+                  onChange={handleform}
+                  className="rounded"
+                />
+                <span className="text-gray-700">Student</span>
+              </label>
+
+              <label className="inline-flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="roleAdmin"
+                  checked={isAdmin}
+                  onChange={handleform}
+                  className="rounded"
+                />
+                <span className="text-gray-700">Admin</span>
+              </label>
+            </div>
+          </div>
+
+          {isAdmin && (
+            <div className="mb-6">
+              <label className="block text-gray-400 text-sm font-bold mb-2">Admin ID</label>
+              <input
+                type="text"
+                name="adminId"
+                value={adminId}
+                onChange={handleform}
+                placeholder="Enter Admin ID"
+                className="shadow appearance-none border oklch(96.7% 0.001 286.375) rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-900 bg-oklch(96.7% 0.001 286.375) placeholder:text-gray-500"
+              />
+              {errors.adminIdErr && <p className="text-red-500 text-xs italic mt-2">{errors.adminIdErr}</p>}
+            </div>
+          )}
+
+          <MyButton type="submit" disabled={disableSubmit}>
+            {isLoading ? "Loading..." : "login"}
+          </MyButton>
+
+          {submitErr && <p className="text-red-500 text-xs italic mt-3">{submitErr}</p>}
+          {submitOk && <p className="text-green-600 text-sm mt-3">{submitOk}</p>}
+          
+              <div className="text-center text-sm mt-4 text-gray-400">
+                Already have an account?{" "}
+                <Link to="/login" className="text-black hover:text-black cursor-pointer">
+                  login
+                </Link>
+                </div>
+>>>>>>> caf1ea7 (footer)
         </form>
       </div>
     </div>
+  </>
   );
+
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> caf1ea7 (footer)
 export default Registration;

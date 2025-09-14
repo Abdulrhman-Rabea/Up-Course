@@ -1,7 +1,16 @@
+<<<<<<< HEAD
+=======
+import { useNavigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import MyButton from "../Component/MyButton";
+
+>>>>>>> caf1ea7 (footer)
 import React, { useState } from "react";
 import { Link} from "react-router-dom";
 
 
+<<<<<<< HEAD
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
     <button
@@ -13,6 +22,14 @@ const MyButton = ({ children, disabled, ...restProps }) => {
     </button>
   );
 };
+=======
+import {
+  signInWithEmail,
+  signInWithGoogle,
+  resetPassword,
+  mapLoginError,
+} from "../lib/login"; 
+>>>>>>> caf1ea7 (footer)
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -180,15 +197,19 @@ function Login() {
                 <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-400">Remember me</label>
               </div>
 
-              <MyButton
+              <MyButton  bgColor={"#ff9500"} textColor={"text-white"} 
                 disabled={
                   !email ||
                   !pass ||
                   errors.emailErr ||
                   errors.passErr
+                  
                 }
+                
                 type="submit"
+
               >
+                
                 Login
               </MyButton>
 
@@ -199,10 +220,19 @@ function Login() {
               </div>
 
               <button
+<<<<<<< HEAD
                 className="flex items-center justify-center space-x-2 w-full py-2 px-4 rounded border text-gray-700 hover:bg-gray-100 transition-colors mb-4 focus:outline-none focus:ring-0"
               >
 
                 <span className="text-black font-bold text-base">Login with Google</span>
+=======
+                type="button"
+                onClick={handleGoogle}
+                className="flex items-center justify-center space-x-2 w-full py-2 px-4 rounded border bg-[#ff9500]  hover:bg-orange-400 transition-colors mb-4 focus:outline-none focus:ring-0">
+                <span className="text-black font-bold text-base text-white">
+                  
+                  <i className="fa-brands fa-google text-white"></i> Login with Google</span>
+>>>>>>> caf1ea7 (footer)
               </button>
 
            

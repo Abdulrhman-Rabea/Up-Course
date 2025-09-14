@@ -8,13 +8,18 @@ import NotFound from './NotFound/NotFound'
 import Login from './login/Login'
 
 function App() {
- let router=createBrowserRouter([{
-  path:'/', element:<Layout/>,children:[
-    {path:'register',element:<Registration/>},
-    {path:'login', element:<Login/>},
-    {path:'*',element:<NotFound/>},
-  ]
- }])
+	let router = createBrowserRouter([
+		{
+			path: "/",
+			element: <Layout />,
+			children: [
+				{ index: true, element: <Home /> },
+				{ path: "register", element: <Registration /> },
+				{ path: "login", element: <Login /> },
+				{ path: "*", element: <NotFound /> },
+			],
+		},
+	]);
 
   return (
     <>
