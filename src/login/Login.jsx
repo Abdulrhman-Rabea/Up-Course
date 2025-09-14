@@ -1,37 +1,20 @@
-<<<<<<< HEAD
-=======
-import { useNavigate } from "react-router-dom";
+// src/login/Login.jsx
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import MyButton from "../Component/MyButton";
 
->>>>>>> caf1ea7 (footer)
-import React, { useState } from "react";
-import { Link} from "react-router-dom";
-
-
-<<<<<<< HEAD
-const MyButton = ({ children, disabled, ...restProps }) => {
-  return (
-    <button
-      className="bg-[#ff9500] hover:bg-orange-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-0 w-full disabled:opacity-50 disabled:cursor-not-allowed"
-      disabled={disabled}
-      {...restProps}
-    >
-      {children}
-    </button>
-  );
-};
-=======
 import {
   signInWithEmail,
   signInWithGoogle,
   resetPassword,
   mapLoginError,
-} from "../lib/login"; 
->>>>>>> caf1ea7 (footer)
+} from "../lib/login";
 
 function Login() {
+  const navigate = useNavigate();
+  const db = getFirestore();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -43,6 +26,8 @@ function Login() {
 
   const emailRegex = /\S+@\S+\.\S+/;
   const passRegex = /^.{6,}$/;
+
+  ////////////////// ValidationForm ///////////////////////////////////
 
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -73,17 +58,81 @@ function Login() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", pass);
-    console.log("Remember Me:", rememberMe);
+  /////////////// Read User Role From Collection & Navigate Based on this role ////////////////////////
+  const getUserRole = async (uid) => {
+    const userSnap = await getDoc(doc(db, "users", uid));
+    const role = userSnap.exists() ? userSnap.data()?.role : null;
+    return role || "student";
   };
 
+  const navigateByRole = async (uid) => {
+    const role = await getUserRole(uid);
+    if (role === "admin") navigate("/adminPage");
+    else navigate("/homePage"); // أو "/"
+  };
+
+  ////////////////////// Firebase Email/Password///////////////////////////
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !pass) {
+      alert("Please enter email and password.");
+      return;
+    }
+    if (errors.emailErr || errors.passErr) {
+      alert("Please fix the errors first.");
+      return;
+    }
+    try {
+      await signInWithEmail({ email, password: pass, remember: rememberMe });
+      const uid = getAuth().currentUser?.uid;
+      if (uid) {
+        await navigateByRole(uid);
+      } else {
+        alert("Logged in successfully!");
+        navigate("/homePage");
+      }
+    } catch (err) {
+      alert(mapLoginError(err?.code));
+    }
+  };
+
+  ////////////////// GoogleAuth/////////////////////////
+  const handleGoogle = async () => {
+    try {
+      await signInWithGoogle({ remember: rememberMe });
+      const uid = getAuth().currentUser?.uid;
+      if (uid) {
+        await navigateByRole(uid);
+      } else {
+        alert("Logged in with Google!");
+        navigate("/homePage");
+      }
+    } catch (err) {
+      alert(mapLoginError(err?.code));
+    }
+  };
+
+  /////////////// onForgotPasswordFunction //////////////////////////
+  const onForgotPassword = async (e) => {
+    e.preventDefault();
+    if (!email || !emailRegex.test(email)) {
+      alert("Please enter a valid email to receive the reset link.");
+      return;
+    }
+    try {
+      await resetPassword(email);
+      alert("Password reset email sent.");
+    } catch (err) {
+      alert(mapLoginError(err?.code));
+    }
+  };
+
+  /////////////// Show And Hidden Password ////////////////////////
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  ////////////////////////////////////////////////
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-oklch(96.7% 0.001 286.375)">
       <div className="flex flex-col lg:flex-row justify-center items-center w-full max-w-7xl gap-20">
@@ -104,8 +153,15 @@ function Login() {
               </p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                
-                  <div className="w-10 h-10 rounded-md bg-gray-300 mr-4" style={{ backgroundImage: "url('https://placehold.co/100x100/A3A3A3/FFFFFF?text=Sarah+L')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+                  <div
+                    className="w-10 h-10 rounded-md bg-gray-300 mr-4"
+                    style={{
+                      backgroundImage:
+                        "url('https://placehold.co/100x100/A3A3A3/FFFFFF?text=Sarah+L')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
                   <div>
                     <h4 className="font-bold text-gray-800">Sarah L</h4>
                   </div>
@@ -130,12 +186,13 @@ function Login() {
           </div>
         </div>
 
-
         <div className="w-full lg:w-[600px] flex items-center justify-center p-8">
           <div className="oklch(98.5% 0 0) shadow-lg p-8 rounded-2xl w-full max-w-sm">
             <h1 className="text-center mb-6 text-black font-bold text-2xl">Login</h1>
             <div className="text-center mb-4">
-              <p className="text-center text-md text-gray-500 ">Welcome back! Please log in to access your account.</p>
+              <p className="text-center text-md text-gray-500 ">
+                Welcome back! Please log in to access your account.
+              </p>
             </div>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
@@ -181,8 +238,15 @@ function Login() {
                   <p className="text-red-500 text-xs italic mt-2">{errors.passErr}</p>
                 )}
               </div>
+
               <div className="flex justify-end text-sm mb-4">
-                <a href="#" className="text-gray-400 hover:text-[#ff9500] transition-colors duration-200">Forgot password?</a>
+                <a
+                  href="#"
+                  onClick={onForgotPassword}
+                  className="text-gray-400 hover:text-[#ff9500] transition-colors duration-200"
+                >
+                  Forgot password?
+                </a>
               </div>
 
               <div className="mb-6 flex items-center">
@@ -197,19 +261,12 @@ function Login() {
                 <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-400">Remember me</label>
               </div>
 
-              <MyButton  bgColor={"#ff9500"} textColor={"text-white"} 
-                disabled={
-                  !email ||
-                  !pass ||
-                  errors.emailErr ||
-                  errors.passErr
-                  
-                }
-                
+              <MyButton
+                bgColor={"#ff9500"}
+                textColor={"text-white"}
+                disabled={!email || !pass || errors.emailErr || errors.passErr}
                 type="submit"
-
               >
-                
                 Login
               </MyButton>
 
@@ -220,25 +277,18 @@ function Login() {
               </div>
 
               <button
-<<<<<<< HEAD
-                className="flex items-center justify-center space-x-2 w-full py-2 px-4 rounded border text-gray-700 hover:bg-gray-100 transition-colors mb-4 focus:outline-none focus:ring-0"
-              >
-
-                <span className="text-black font-bold text-base">Login with Google</span>
-=======
                 type="button"
                 onClick={handleGoogle}
-                className="flex items-center justify-center space-x-2 w-full py-2 px-4 rounded border bg-[#ff9500]  hover:bg-orange-400 transition-colors mb-4 focus:outline-none focus:ring-0">
-                <span className="text-black font-bold text-base text-white">
-                  
-                  <i className="fa-brands fa-google text-white"></i> Login with Google</span>
->>>>>>> caf1ea7 (footer)
+                className="flex items-center justify-center space-x-2 w-full py-2 px-4 rounded border bg-[#ff9500] hover:bg-orange-400 transition-colors mb-4 focus:outline-none focus:ring-0"
+              >
+                <span className="font-bold text-base text-white">
+                  <i className="fa-brands fa-google text-white"></i> Login with Google
+                </span>
               </button>
 
-           
               <div className="text-center text-sm mt-4 text-gray-400">
                 Don't have an account?{" "}
-                  <Link to="/register" className="text-black hover:text-black cursor-pointer">
+                <Link to="/register" className="text-black hover:text-black cursor-pointer">
                   Sign up
                 </Link>
               </div>

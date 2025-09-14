@@ -1,6 +1,6 @@
-import React from 'react'
-import Mybutton from '../Component/MyButton'
-import { Link } from 'react-router-dom'
+import React from "react";
+import MyButton from "../Component/MyButton";
+import { Link } from "react-router-dom";
 
 export default function Nav() {
 	return (

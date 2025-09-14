@@ -1,99 +1,194 @@
+// src/regisrtaion/Registration.jsx
 import React, { useState } from "react";
-<<<<<<< HEAD
-=======
 import { signUpWithEmail, mapAuthError } from "../lib/auth";
 import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
->>>>>>> caf1ea7 (footer)
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
     <button
       className="bg-[#ff9500] hover:bg-orange-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 w-full disabled:opacity-50 disabled:cursor-not-allowed"
-      disabled={disabled}
+      disabled={!!disabled}
       {...restProps}
     >
       {children}
     </button>
   );
 };
+
 function Registration() {
+  const db = getFirestore();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [rePass, setRePass] = useState("");
+
+  const [isStudent, setIsStudent] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminId, setAdminId] = useState("");
+
   const [errors, setErrors] = useState({
     nameErr: "",
     emailErr: "",
     passErr: "",
     rePassErr: "",
+    adminIdErr: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitErr, setSubmitErr] = useState("");
+  const [submitOk, setSubmitOk] = useState("");
+
+  ///////////////// ids//////////////////////////
+  const ALLOWED_ADMIN_IDS = new Set(["11", "22", "33", "44", "55"]);
+  const isAdminIdAllowed = (val) => ALLOWED_ADMIN_IDS.has(String(val).trim());
+
   const emailRegex = /\S+@\S+\.\S+/;
   const passRegex = /^.{6,}$/;
+
+  /////////////// Handle Form Input /////////////////////////////////////
+
   const handleform = (e) => {
-    const { name, value } = e.target;
+    const { name, value, checked } = e.target;
+
     if (name === "username") {
       setName(value);
-      if (value.length === 0) {
-        setErrors({ ...errors, nameErr: "Name is required" });
-      } else {
-        setErrors({ ...errors, nameErr: "" });
-      }
+      setErrors((p) => ({ ...p, nameErr: value ? "" : "Name is required" }));
     }
+
     if (name === "useremail") {
       setEmail(value);
-      if (value.length === 0) {
-        setErrors({ ...errors, emailErr: "Email is required" });
-      } else if (!emailRegex.test(value)) {
-        setErrors({ ...errors, emailErr: "Invalid email format" });
-      } else {
-        setErrors({ ...errors, emailErr: "" });
-      }
+      setErrors((p) => ({
+        ...p,
+        emailErr: !value
+          ? "Email is required"
+          : !emailRegex.test(value)
+          ? "Invalid email format"
+          : "",
+      }));
     }
+
     if (name === "userpass") {
       setPass(value);
-      if (value.length === 0) {
-        setErrors({ ...errors, passErr: "Password is required" });
-      } else if (!passRegex.test(value)) {
-        setErrors({
-          ...errors,
-          passErr: "Password must be at least 6 characters",
-        });
-      } else {
-        setErrors({ ...errors, passErr: "" });
-      }
+      setErrors((p) => ({
+        ...p,
+        passErr: !value
+          ? "Password is required"
+          : !passRegex.test(value)
+          ? "Password must be at least 6 characters"
+          : "",
+      }));
     }
+
     if (name === "repass") {
       setRePass(value);
-      if (value.length === 0) {
-        setErrors({ ...errors, rePassErr: "Please re-enter password" });
-      } else if (value !== pass) {
-        setErrors({ ...errors, rePassErr: "Passwords do not match" });
+      setErrors((p) => ({
+        ...p,
+        rePassErr: !value ? "Please re-enter password" : value !== pass ? "Passwords do not match" : "",
+      }));
+    }
+
+    if (name === "roleStudent") {
+      setIsStudent(!!checked);
+    }
+
+    if (name === "roleAdmin") {
+      setIsAdmin(!!checked);
+      if (checked) {
+        if (!adminId.trim()) {
+          setErrors((p) => ({ ...p, adminIdErr: "Please enter Admin ID" }));
+        } else if (!isAdminIdAllowed(adminId)) {
+          setErrors((p) => ({ ...p, adminIdErr: "Admin ID is not allowed" }));
+        } else {
+          setErrors((p) => ({ ...p, adminIdErr: "" }));
+        }
       } else {
-        setErrors({ ...errors, rePassErr: "" });
+        setAdminId("");
+        setErrors((p) => ({ ...p, adminIdErr: "" }));
       }
     }
+
+    if (name === "adminId") {
+      setAdminId(value);
+      setErrors((p) => ({
+        ...p,
+        adminIdErr: !value.trim()
+          ? "Please enter Admin ID"
+          : !isAdminIdAllowed(value)
+            ? "Admin ID is not allowed"
+            : "",
+      }));
+    }
   };
+
+  /////////////// Handle Submit when press on Register Button /////////////////////////////////////
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitErr("");
+    setSubmitOk("");
+
+    if (!name || !email || !pass || !rePass) {
+      setSubmitErr("Please fill all required fields.");
+      return;
+    }
+    if (errors.nameErr || errors.emailErr || errors.passErr || errors.rePassErr) {
+      setSubmitErr("Please fix the errors first.");
+      return;
+    }
+    if (isAdmin) {
+      if (!adminId.trim()) {
+        setErrors((p) => ({ ...p, adminIdErr: "Please enter Admin ID" }));
+        return;
+      }
+      if (!isAdminIdAllowed(adminId)) {
+        setErrors((p) => ({ ...p, adminIdErr: "Admin ID is not allowed" }));
+        return;
+      }
+    }
+
+    try {
+      setIsLoading(true);
+
+      const user = await signUpWithEmail({
+        email,
+        password: pass,
+        displayName: name,
+      });
+
+      /////// User Role
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          displayName: name,
+          email,
+          role: isAdmin ? "admin" : "student",
+          createdAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+
+      setSubmitOk("Email has been sent. Please check your inbox.");
+      // should activate email before sign-in if needed
+    } catch (e) {
+      setSubmitErr(mapAuthError(e?.code));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const hasErrors = Object.values(errors).some(Boolean);
+  const requiredFilled = name && email && pass && rePass && (!isAdmin || adminId);
+  const isAdminIdValid = !isAdmin || isAdminIdAllowed(adminId);
+  const disableSubmit = hasErrors || !requiredFilled || !isAdminIdValid || isLoading;
+
   return (
-<<<<<<< HEAD
-    <div
-      className="flex justify-center items-center min-h-screen "
-    >
- 
-      <div
-        className="oklch(98.5% 0 0) shadow-lg p-8 rounded-2xl w-96 text-white"
-      >
-=======
-     <>
-    
-      
-    
     <div className="flex justify-center items-center min-h-screen">
       <div className="oklch(98.5% 0 0) shadow-lg p-8 rounded-2xl w-96 text-white">
->>>>>>> caf1ea7 (footer)
         <h3 className="text-center mb-6 text-black font-bold text-2xl">Register</h3>
-        <form>
-      
+
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2">Name</label>
             <input
@@ -104,10 +199,9 @@ function Registration() {
               placeholder="Enter your name"
               className="shadow appearance-none border oklch(96.7% 0.001 286.375) rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-900 bg-oklch(96.7% 0.001 286.375) placeholder:text-gray-500"
             />
-            {errors.nameErr && (
-              <p className="text-red-500 text-xs italic mt-2">{errors.nameErr}</p>
-            )}
+            {errors.nameErr && <p className="text-red-500 text-xs italic mt-2">{errors.nameErr}</p>}
           </div>
+
           <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2">Email</label>
             <input
@@ -118,11 +212,9 @@ function Registration() {
               placeholder="Enter your email"
               className="shadow appearance-none border oklch(96.7% 0.001 286.375) rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-900 bg-oklch(96.7% 0.001 286.375) placeholder:text-gray-500"
             />
-            {errors.emailErr && (
-              <p className="text-red-500 text-xs italic mt-2">{errors.emailErr}</p>
-            )}
+            {errors.emailErr && <p className="text-red-500 text-xs italic mt-2">{errors.emailErr}</p>}
           </div>
-          
+
           <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2">Password</label>
             <input
@@ -133,12 +225,10 @@ function Registration() {
               placeholder="Enter your password"
               className="shadow appearance-none border oklch(96.7% 0.001 286.375) rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-900 bg-oklch(96.7% 0.001 286.375) placeholder:text-gray-500"
             />
-            {errors.passErr && (
-              <p className="text-red-500 text-xs italic mt-2">{errors.passErr}</p>
-            )}
+            {errors.passErr && <p className="text-red-500 text-xs italic mt-2">{errors.passErr}</p>}
           </div>
-          
-          <div className="mb-6">
+
+          <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2">Re-enter Password</label>
             <input
               type="password"
@@ -148,23 +238,8 @@ function Registration() {
               placeholder="Re-enter your password"
               className="shadow appearance-none border oklch(96.7% 0.001 286.375) rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-900 bg-oklch(96.7% 0.001 286.375) placeholder:text-gray-500"
             />
-            {errors.rePassErr && (
-              <p className="text-red-500 text-xs italic mt-2">{errors.rePassErr}</p>
-            )}
+            {errors.rePassErr && <p className="text-red-500 text-xs italic mt-2">{errors.rePassErr}</p>}
           </div>
-<<<<<<< HEAD
-          <MyButton
-            disabled={
-              errors.nameErr ||
-              errors.emailErr ||
-              errors.passErr ||
-              errors.rePassErr
-            }
-            type="submit"
-          >
-            Register
-          </MyButton>
-=======
 
           <div className="mb-4">
             <span className="block text-gray-400 text-sm font-bold mb-2">Role</span>
@@ -209,29 +284,22 @@ function Registration() {
           )}
 
           <MyButton type="submit" disabled={disableSubmit}>
-            {isLoading ? "Loading..." : "login"}
+            {isLoading ? "Loading..." : "Register"}
           </MyButton>
 
           {submitErr && <p className="text-red-500 text-xs italic mt-3">{submitErr}</p>}
           {submitOk && <p className="text-green-600 text-sm mt-3">{submitOk}</p>}
-          
-              <div className="text-center text-sm mt-4 text-gray-400">
-                Already have an account?{" "}
-                <Link to="/login" className="text-black hover:text-black cursor-pointer">
-                  login
-                </Link>
-                </div>
->>>>>>> caf1ea7 (footer)
+
+          <div className="text-center text-sm mt-4 text-gray-400">
+            Already have an account?{" "}
+            <Link to="/login" className="text-black hover:text-black cursor-pointer">
+              login
+            </Link>
+          </div>
         </form>
       </div>
     </div>
-  </>
   );
-
 }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> caf1ea7 (footer)
 export default Registration;
