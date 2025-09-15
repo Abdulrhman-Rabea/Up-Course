@@ -15,11 +15,7 @@ export default function TestimonialCard({ text, image, name }) {
 					<span className="font-medium text-gray-800">{name}</span>
 				</div>
 
-				<MyButton
-					bgColor="#E4E4E7"
-					textColor="text-gray-800"
-					className="w-auto px-4"
-				>
+				<MyButton bgColor="#ff9500" textColor="text-gray-800">
 					Read Full Story
 				</MyButton>
 			</div>

@@ -2,7 +2,10 @@ import MyButton from "../MyButton";
 
 export default function PricingCard({ title, price, features }) {
 	return (
-		<div className="bg-white rounded-xl border shadow-sm p-6 flex flex-col justify-between hover:shadow-md transition">
+		<div
+			id="PriceSec"
+			className="bg-white rounded-xl border shadow-sm p-6 flex flex-col justify-between hover:shadow-md transition"
+		>
 			<div className="text-center">
 				<div className="bg-orange-50 py-2 rounded text-gray-800 font-medium">
 					{title}

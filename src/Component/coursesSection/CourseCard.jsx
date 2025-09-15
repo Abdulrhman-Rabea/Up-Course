@@ -10,7 +10,10 @@ export default function CourseCard({
 	buttonText,
 }) {
 	return (
-		<div className="bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition">
+		<div
+			id="CoursesSec"
+			className="bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition"
+		>
 			<img src={image} alt={title} className="w-full h-48 object-cover" />
 
 			<div className="p-6 flex flex-col gap-4">
