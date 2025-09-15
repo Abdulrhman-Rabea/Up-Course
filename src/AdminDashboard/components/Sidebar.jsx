@@ -17,8 +17,8 @@ function Sidebar() {
   return (
     <aside className="w-64 bg-white border-r border-gray-200 p-5">
       {/* Logo*/}
-<div class="flex shrink-0 items-center justify-center">
-    <img alt="Your Company" class="h-8 w-auto rounded-md " src="/images/logo.png"/>
+<div className="flex shrink-0 items-center justify-center">
+    <img alt="Your Company" className="h-8 w-auto rounded-md " src="/images/logo.png"/>
     
     </div>
       {/* Links*/}
