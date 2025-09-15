@@ -16,8 +16,6 @@ const MyButton = ({ children, disabled, ...restProps }) => {
 
 function Registration() {
   const db = getFirestore();
-
- 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");

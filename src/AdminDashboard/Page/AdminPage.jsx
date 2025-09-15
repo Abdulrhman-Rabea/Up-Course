@@ -1,4 +1,4 @@
-
+// AdminPage.jsx
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import CoursesTable from '../components/CoursesTable';
