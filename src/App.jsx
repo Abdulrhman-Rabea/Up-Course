@@ -5,6 +5,9 @@ import Registration from "./regisrtaion/Registration";
 import NotFound from "./NotFound/NotFound";
 import Login from "./login/Login";
 import Home from "./pages/Home";
+import AdminPage from "./AdminDashboard/Page/AdminPage";
+import AddCoursePage from "./AdminDashboard/Page/AddCoursePage";
+import EditCoursePage from "./AdminDashboard/Page/EditCoursePage";
 
 function App() {
 	let router = createBrowserRouter([
@@ -15,6 +18,9 @@ function App() {
 				{ index: true, element: <Home /> },
 				{ path: "register", element: <Registration /> },
 				{ path: "login", element: <Login /> },
+				{ path: "AdminPage", element: <AdminPage /> },
+				{ path: "add-course", element: <AddCoursePage /> },
+				{ path: "edit-course/:courseId", element: <EditCoursePage /> },
 				{ path: "*", element: <NotFound /> },
 			],
 		},

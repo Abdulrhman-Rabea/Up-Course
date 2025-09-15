@@ -87,7 +87,7 @@ function Login() {
 
 const navigateByRole = async (uid) => {
   const role = await getUserRole(uid);
-  if (role === "admin") navigate("/adminPage");
+  if (role === "admin") navigate("/AdminPage");
   else navigate("/homePage"); // أو "/"
 };
 
