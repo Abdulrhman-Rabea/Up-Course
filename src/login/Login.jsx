@@ -2,16 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-
 
 import {
   signInWithEmail,
   signInWithGoogle,
   resetPassword,
   mapLoginError,
-} from "../lib/login"; 
+} from "../lib/login";
 
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
@@ -37,17 +36,90 @@ function Login() {
     passErr: "",
   });
 
+  // Message state 
+  const [message, setMessage] = useState({
+    visible: false,
+    text: "",
+    type: "info", // 'info' | 'success' | 'error'
+    requireInteraction: false,
+    resolve: null,
+  });
+  const timerRef = useRef(null);
+
+  // showMessage returns a promise that resolves when the message is closed
+  const showMessage = ({ text, type = "info", requireInteraction = false }) => {
+    return new Promise((resolve) => {
+      // clear any previous timer
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+
+      setMessage({
+        visible: true,
+        text,
+        type,
+        requireInteraction,
+        resolve,
+      });
+
+      // auto-hide unless requireInteraction is true
+      if (!requireInteraction) {
+        timerRef.current = setTimeout(() => {
+          // resolve and hide
+          setMessage((prev) => {
+            if (prev.resolve) prev.resolve();
+            return { ...prev, visible: false, resolve: null };
+          });
+          resolve();
+          timerRef.current = null;
+        }, 4000); // auto-hide after 4s
+      }
+    });
+  };
+
+  const closeMessage = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setMessage((prev) => {
+      if (prev.resolve) prev.resolve();
+      return { ...prev, visible: false, resolve: null };
+    });
+  };
+
+  // Small message UI - minimal, Tailwind-based
+  const MessageBox = () => {
+    if (!message.visible) return null;
+    const base = "fixed left-1/2 transform -translate-x-1/2 top-6 z-50 w-full max-w-xl mx-auto px-4";
+    const container =
+      message.type === "success"
+        ? "bg-green-50 border border-green-300 text-green-800"
+        : message.type === "error"
+        ? "bg-red-50 border border-red-300 text-red-800"
+        : "bg-gray-50 border border-gray-300 text-gray-800";
+
+    return (
+      <div className={`${base}`}>
+        <div className={`${container} rounded-md p-3 flex items-start justify-between shadow`}>
+          <div className="flex-1 text-sm leading-tight">{message.text}</div>
+          <button
+            onClick={closeMessage}
+            className="ml-4 text-sm font-medium px-2 py-1 rounded hover:opacity-80"
+            aria-label="Close message"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   const emailRegex = /\S+@\S+\.\S+/;
   const passRegex = /^.{6,}$/;
 
-
-
-
-
-
-//////////////////  ValidationForm  ///////////////////////////////////
-
-
+  ////////////////// ValidationForm ///////////////////////////////////
 
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -78,94 +150,89 @@ function Login() {
     }
   };
 
-  /////////////// Read User Role From Collection & Navigate Based on this role ////////////////////////
- const getUserRole = async (uid) => {
-  const userSnap = await getDoc(doc(db, "users", uid));
-  const role = userSnap.exists() ? userSnap.data()?.role : null;
-  return role || "student";
-};
+  // Read User Role & Navigate
+  const getUserRole = async (uid) => {
+    const userSnap = await getDoc(doc(db, "users", uid));
+    const role = userSnap.exists() ? userSnap.data()?.role : null;
+    return role || "student";
+  };
 
-const navigateByRole = async (uid) => {
-  const role = await getUserRole(uid);
-  if (role === "admin") navigate("/adminPage");
-  else navigate("/homePage"); // أو "/"
-};
+  const navigateByRole = async (uid) => {
+    const role = await getUserRole(uid);
+    if (role === "admin") navigate("/AdminPage");
+    else navigate("/homePage");
+  };
 
   ////////////////////// Firebase Email/Password///////////////////////////
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !pass) {
-      alert("Please enter email and password.");
+      await showMessage({ text: "Please enter email and password.", type: "error" });
       return;
     }
     if (errors.emailErr || errors.passErr) {
-      alert("Please fix the errors first.");
+      await showMessage({ text: "Please fix the errors first.", type: "error" });
       return;
     }
-  try {
+    try {
       await signInWithEmail({ email, password: pass, remember: rememberMe });
       const uid = getAuth().currentUser?.uid;
       if (uid) {
         await navigateByRole(uid);
       } else {
-        alert("Logged in successfully!");
+        // Show Message with requireInteraction
+        await showMessage({ text: "Logged in successfully!", type: "success", requireInteraction: true });
         navigate("/homePage");
       }
     } catch (err) {
-      alert(mapLoginError(err?.code));
+      await showMessage({ text: mapLoginError(err?.code), type: "error" });
     }
   };
 
   ////////////////// GoogleAuth/////////////////////////
-   const handleGoogle = async () => {
+  const handleGoogle = async () => {
     try {
       await signInWithGoogle({ remember: rememberMe });
       const uid = getAuth().currentUser?.uid;
       if (uid) {
         await navigateByRole(uid);
       } else {
-        alert("Logged in with Google!");
+        await showMessage({ text: "Logged in with Google!", type: "success", requireInteraction: true });
         navigate("/homePage");
       }
     } catch (err) {
-      alert(mapLoginError(err?.code));
+      await showMessage({ text: mapLoginError(err?.code), type: "error" });
     }
   };
 
-
-   ///////////////  onForgotPasswordFunction  //////////////////////////
+  // onForgotPassword
   const onForgotPassword = async (e) => {
     e.preventDefault();
     if (!email || !emailRegex.test(email)) {
-      alert("Please enter a valid email to receive the reset link.");
+      await showMessage({ text: "Please enter a valid email to receive the reset link.", type: "error" });
       return;
     }
     try {
       await resetPassword(email);
-      alert("Password reset email sent.");
+      await showMessage({ text: "Password reset email sent.", type: "success" });
     } catch (err) {
-      alert(mapLoginError(err?.code));
+      await showMessage({ text: mapLoginError(err?.code), type: "error" });
     }
   };
 
-
-
-
-
-  /////////////// Show And Hidden Password ////////////////////////
+  // Show And Hidden Password
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-
-
-
   ////////////////////////////////////////////////
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-oklch(96.7% 0.001 286.375)">
+      {/* Message UI rendered at top level so it overlays */}
+      <MessageBox />
+
       <div className="flex flex-col lg:flex-row justify-center items-center w-full max-w-7xl gap-20">
         <div className="flex-grow flex flex-col justify-center p-8 hidden lg:flex">
-          
           <div className="max-w-xl text-left text-gray-700">
             <h2 className="text-3xl font-bold mb-4">Students Testimonials</h2>
             <p className="mb-8">
@@ -250,11 +317,9 @@ const navigateByRole = async (uid) => {
                   className="shadow appearance-none rounded w-full py-2 px-3 leading-tight focus:outline-none focus:ring-0 text-gray-900 bg-oklch(96.7% 0.001 286.375) placeholder:text-gray-500 pr-10"
                 />
                 <span
-                    onClick={togglePasswordVisibility}
-
+                  onClick={togglePasswordVisibility}
                   className="absolute inset-y-0 right-0 top-6 pr-3 flex items-center text-sm leading-5 cursor-pointer text-gray-400 hover:text-gray-200 transition-colors"
                 >
-                  
                   {showPassword ? (
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                       <path d="M3.53 2.45L2.47 3.51a.75.75 0 001.06 1.06l1.246-1.246a10.993 10.993 0 00-2.31 2.395A11.026 11.026 0 001.995 12c.319.98.665 1.933 1.034 2.852l-1.353 1.353a.75.75 0 101.06 1.06l1.22-1.22A11.024 11.024 0 008.25 18c.954 0 1.884-.131 2.768-.37l.453-.122a.75.75 0 00.548-.823L11.23 15.3l-.285-.882A6.5 6.5 0 0112 6.5a6.471 6.471 0 011.042 2.628l.493-.493a7.973 7.973 0 001.918-.753l.488-.162c.304-.101.564-.06.745.069.18.13.255.334.225.54l-1.634 5.05A6.476 6.476 0 0117.5 15c.613 0 1.205-.091 1.772-.258l2.064 2.064a.75.75 0 101.06-1.06l-1.246-1.246a11.025 11.025 0 002.396-2.31c.369-.919.715-1.872 1.034-2.852l-1.353-1.353a.75.75 0 10-1.06 1.06l1.22 1.22a11.025 11.025 0 00-2.31-2.396L17.53 2.45a.75.75 0 00-1.06 1.06l1.246 1.246c-1.127-1.161-2.456-2.128-3.921-2.864a.75.75 0 10-.642 1.35c1.233.61 2.35 1.48 3.321 2.583L14.773 7.854l-1.42 1.42A4.985 4.985 0 0012 8.5c-.752 0-1.48-.126-2.162-.359L8.3 7.5l-1.42-1.42a1.5 1.5 0 00-2.122 0l-1.42 1.42a1.5 1.5 0 00-2.122 0l-1.42 1.42zM5.5 8.5a.75.75 0 100 1.5.75.75 0 000-1.5z" clipRule="evenodd" />
@@ -271,7 +336,6 @@ const navigateByRole = async (uid) => {
               </div>
 
               <div className="flex justify-end text-sm mb-4">
-                
                 <a
                   href="#"
                   onClick={onForgotPassword}
