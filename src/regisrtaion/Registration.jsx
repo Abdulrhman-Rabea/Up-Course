@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signUpWithEmail, mapAuthError } from "../lib/auth";
 import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
-
+import { Link } from "react-router-dom";
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
     <button
@@ -318,7 +318,9 @@ const handleSubmit = async (e) => {
           <MyButton type="submit" disabled={disableSubmit}>
             {isLoading ? "Loading..." : "Register"}
           </MyButton>
-
+            <div className="flex items-center justify-center mt-4"></div>
+              <span className="text-gray-600 mr-2">Already have an account?</span>
+              <Link to="/login" className="text-black hover:text-black cursor-pointer">Login</Link>
           {submitErr && <p className="text-red-500 text-xs italic mt-3">{submitErr}</p>}
           {submitOk && <p className="text-green-600 text-sm mt-3">{submitOk}</p>}
         </form>

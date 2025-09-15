@@ -193,13 +193,13 @@ function Login() {
   const handleGoogle = async () => {
     try {
       await signInWithGoogle({ remember: rememberMe });
-      const uid = getAuth().currentUser?.uid;
-      if (uid) {
-        await navigateByRole(uid);
-      } else {
-        await showMessage({ text: "Logged in with Google!", type: "success", requireInteraction: true });
-        navigate("/homePage");
-      }
+      // const uid = getAuth().currentUser?.uid;
+      // if (uid) {
+      //   await navigateByRole(uid);
+      // } else {
+      //   await showMessage({ text: "Logged in with Google!", type: "success", requireInteraction: true });
+        navigate("/");
+      // }
     } catch (err) {
       await showMessage({ text: mapLoginError(err?.code), type: "error" });
     }
