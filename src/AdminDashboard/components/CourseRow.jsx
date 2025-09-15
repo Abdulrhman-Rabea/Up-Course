@@ -21,7 +21,6 @@ function CourseRow({ course, onDelete }) {
                 onDelete(course.id);
             } catch (error) {
                 console.error("Error removing document: ", error);
-                alert("Error removing document. Please try again.");
             }
         }
     };
