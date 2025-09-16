@@ -52,6 +52,8 @@ function EditCoursePage() {
         title: courseData.title,
         description: courseData.description,
         price: Number(courseData.price),
+        playlistId: courseData.playlistId
+
       });
       setMessage("Course updated successfully.");
       setTimeout(() => navigate('/AdminPage'), 2000);
@@ -66,7 +68,7 @@ function EditCoursePage() {
   if (isLoading) {
     return <div className="text-center p-10">Loading...</div>;
   }
-  
+
   if (!courseData) {
     return <div className="text-center p-10">{message}</div>;
   }
@@ -74,35 +76,46 @@ function EditCoursePage() {
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center items-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
-           <div className="mb-6 grid grid-cols-3 items-center">
-  <div /> {/* left empty to balance */}
-  <h1 className="text-2xl font-bold text-gray-800 text-center">
-    Edit Course
-  </h1>
-  <Link to="/AdminPage" className="text-sm text-gray-500 hover:text-orange-500 justify-self-end">
-    <button className='bg-orange-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors'>Back To Dashboard</button>
-  </Link>
-</div>
+        <div className="mb-6 grid grid-cols-3 items-center">
+          <div /> {/* left empty to balance */}
+          <h1 className="text-2xl font-bold text-gray-800 text-center">
+            Edit Course
+          </h1>
+          <Link to="/AdminPage" className="text-sm text-gray-500 hover:text-orange-500 justify-self-end">
+            <button className='bg-orange-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors'>Back To Dashboard</button>
+          </Link>
+        </div>
 
         <form onSubmit={handleSubmit}>
           {/*Course name*/}
           <div className="mb-4">
             <label htmlFor="title" className="block text-gray-700 font-medium mb-2 text-left">Course Name </label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="title"
-              name="title" 
+              name="title"
               value={courseData.title}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border rounded-lg" 
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="playlistId" className="block text-gray-700 font-medium mb-2 text-left">Playlist ID </label>
+            <input
+              type="text"
+              id="playlistId"
+              name="playlistId"
+              value={courseData.playlistId}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
           {/* description */}
           <div className="mb-4">
             <label htmlFor="description" className="block text-gray-700 font-medium mb-2 text-left">Description</label>
-            <textarea 
+            <textarea
               id="description"
-              name="description" 
+              name="description"
               rows="4"
               value={courseData.description}
               onChange={handleInputChange}
@@ -112,15 +125,16 @@ function EditCoursePage() {
           {/* Price */}
           <div className="mb-4">
             <label htmlFor="price" className="block text-gray-700 font-medium mb-2 text-left">Price ($)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               id="price"
-              name="price" 
+              name="price"
               value={courseData.price}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border rounded-lg" 
+              className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
+
           {/* Save Button */}
           <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-orange-600">
             {isLoading ? 'Saving ...' : 'Saving Changes'}

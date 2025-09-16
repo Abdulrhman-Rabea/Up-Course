@@ -1,4 +1,4 @@
-
+// CourseRow.jsx
 import { doc, deleteDoc } from 'firebase/firestore'; 
 import { db } from '../../lib/firebase'; 
 import { Link } from 'react-router-dom';

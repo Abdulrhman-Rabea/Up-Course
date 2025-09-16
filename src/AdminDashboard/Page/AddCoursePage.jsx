@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabaseClient'; 
 import { db } from '../../lib/firebase'; 
 import { collection, addDoc } from 'firebase/firestore';
-
+import { getAuth } from 'firebase/auth';
 function AddCoursePage() {
- 
+  const user = getAuth().currentUser;
   const [title, setTitle] = useState('');
+  const [playlistId, setPlaylistId] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [imageFile, setImageFile] = useState(null);
@@ -30,7 +31,7 @@ function AddCoursePage() {
     e.preventDefault();
 
     // Validation form
-    if (!title || !description || !price || !imageFile) {
+    if (!title|| !playlistId || !description || !price || !imageFile) {
       setMessage('Please fill all required fields.');
       return;
     }
@@ -51,12 +52,15 @@ function AddCoursePage() {
 
       // 2. Get public URL of the uploaded image
       const { data: { publicUrl } } = supabase.storage
-        .from('images') // TODO: استبدل 'courses-images' باسم الـ Bucket الخاص بك
+        .from('images') 
         .getPublicUrl(filePath);
 
       // 3. Save course data to Firestore
       await addDoc(collection(db, "courses"), {
+        ownerUid: user.uid,         
+        ownerEmail: user.email ?? null,
         title: title,
+        playlistId: playlistId,
         description: description,
         price: Number(price), 
         imageUrl: publicUrl, 
@@ -105,6 +109,17 @@ function AddCoursePage() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" 
             />
           </div>
+            {/*PlaylistId*/}
+          <div className="mb-4">
+            <label htmlFor="title" className="block text-gray-700 font-medium mb-2 text-left"> Playlist ID </label>
+            <input 
+              type="text" 
+              id="playlistId"
+              value={playlistId}
+              onChange={(e) => setPlaylistId(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" 
+            />
+          </div>
 
           {/*Description*/}
           <div className="mb-4">
@@ -141,7 +156,7 @@ function AddCoursePage() {
               className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-600 hover:file:bg-orange-100"
             />
           </div>
-
+          
           {/* Save Button */}
           <button 
             type="submit" 
