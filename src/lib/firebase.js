@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, getDocs, getDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, doc, updateDoc, deleteDoc,setDoc,arrayUnion } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -58,3 +58,46 @@ export async function deleteData(colName, id) {
 }
 
 
+
+
+//function to get current user 
+
+export function getCurrentUser() {
+  //get current user
+  return auth.currentUser;
+}
+
+//function enroll course for user use UId
+export async function enrollCourseForUser(uid, enrolledCourse) {
+//doc ref
+  const userRef = doc(db, "users", uid);
+
+  //ensure doc exixts and if not exist do create 
+  const snap = await getDoc(userRef);
+  if (!snap.exists()) {
+    await setDoc(
+      userRef,
+      {
+        createdAt: new Date().toISOString(),
+        // when login fill
+        enrolledCourses: [],
+      },
+      { merge: true }
+    );
+  }
+
+  // added courses to enrolledCourses use arrayUnion
+  await updateDoc(userRef, {
+    enrolledCourses: arrayUnion(enrolledCourse),
+  });
+}
+
+// function get courses that user enrolled
+export async function getUserEnrolledCourses(uid) {
+  // doc ref
+  const userRef = doc(db, "users", uid);
+  // Read doc 
+  const snap = await getDoc(userRef);
+  //return array or empty array
+  return snap.exists() ? snap.data().enrolledCourses || [] : [];
+}

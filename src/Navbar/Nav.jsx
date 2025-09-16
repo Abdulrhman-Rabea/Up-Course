@@ -82,6 +82,12 @@ export default function Nav() {
 										Courses
 									</Link>
 									<Link
+										to="/my-courses"
+										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
+									>
+										My Courses
+									</Link>
+									<Link
 										to="/about"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
