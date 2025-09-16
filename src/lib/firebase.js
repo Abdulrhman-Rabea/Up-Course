@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore"; 
+import { getFirestore, collection, getDocs, getDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,4 +16,45 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);    
+export const db = getFirestore(app);
+
+
+
+
+
+
+
+//CRUD operations Developer ==> AbdulrhmanR
+
+// look in (How-to-use-fb-functions.md) file to see how to use this functions >>
+
+//create function already developed by by ENG : Ahmed Shaban
+
+
+// Read all data
+export async function getAllData(colName) {
+  const colRef = collection(db, colName);
+  const snapshot = await getDocs(colRef);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+// Read one doc
+export async function getData(colName, id) {
+  const docRef = doc(db, colName, id);
+  const snapshot = await getDoc(docRef);
+  return snapshot.exists() ? { id: snapshot.id, ...snapshot.data() } : null;
+}
+
+// Update
+export async function updateData(colName, id, newData) {
+  const docRef = doc(db, colName, id);
+  await updateDoc(docRef, newData);
+}
+
+// Delete , i will use this to UNroll courses or can use updateData() >> not sure yet 
+export async function deleteData(colName, id) {
+  const docRef = doc(db, colName, id);
+  await deleteDoc(docRef);
+}
+
+

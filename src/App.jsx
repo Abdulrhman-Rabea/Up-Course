@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import AdminPage from "./AdminDashboard/Page/AdminPage";
 import AddCoursePage from "./AdminDashboard/Page/AddCoursePage";
 import EditCoursePage from "./AdminDashboard/Page/EditCoursePage";
+import CourseDetails from "./Courses/CourseDetails";
+import AllCourses from "./Courses/courses";
 
 function App() {
 	let router = createBrowserRouter([
@@ -21,6 +23,9 @@ function App() {
 				{ path: "AdminPage", element: <AdminPage /> },
 				{ path: "add-course", element: <AddCoursePage /> },
 				{ path: "edit-course/:courseId", element: <EditCoursePage /> },
+				{ path: "Course-Details", element: <CourseDetails /> },
+				{ path: "Courses", element: <AllCourses /> },
+
 				{ path: "*", element: <NotFound /> },
 			],
 		},
