@@ -25,7 +25,7 @@ function App() {
 				{ path: "AdminPage", element: <AdminPage /> },
 				{ path: "add-course", element: <AddCoursePage /> },
 				{ path: "edit-course/:courseId", element: <EditCoursePage /> },
-				{ path: "Course-Details", element: <CourseDetails /> },
+				{ path: "courses/:id", element: <CourseDetails /> },
 				{ path: "checkout", element: <PayPalCheckout /> },
 				{ path: "my-courses", element: <MyCourses /> },
 				{ path: "Courses", element: <AllCourses /> },

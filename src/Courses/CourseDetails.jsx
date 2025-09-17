@@ -1,21 +1,39 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { fetchPlaylistVideos } from "./CallYoutubeApi";
-
+import { getData } from "../lib/firebase";
 export default function CourseDetails() {
+	const { id } = useParams();
+	const [course, setCourse] = useState(null);
 	const [videos, setVideos] = useState([]);
 
 	useEffect(() => {
 		async function load() {
-			const playlistId = "PLDoPjvoNmBAz7wegzgoJvVJdr-WwE5Pwt";
-			const vids = await fetchPlaylistVideos(playlistId);
-			setVideos(vids);
+			const courseData = await getData("courses", id);
+
+			if (!courseData) {
+				console.error("Course not found");
+				return;
+			}
+
+			setCourse(courseData);
+
+			if (courseData.playlistId) {
+				const vids = await fetchPlaylistVideos(courseData.playlistId);
+				setVideos(vids);
+			}
 		}
+
 		load();
-	}, []);
+	}, [id]);
+
+	if (!course) return <p>Loading...</p>;
 
 	return (
 		<div className="p-6">
-			<h1 className="text-2xl font-bold mb-4">Playlist Videos</h1>
+			<h1 className="text-2xl font-bold">{course.title}</h1>
+			<p className="mb-4">{course.description}</p>
+
 			<div className="grid grid-cols-3 gap-4">
 				{videos.map((v) => (
 					<div key={v.videoId} className="border p-2 rounded">

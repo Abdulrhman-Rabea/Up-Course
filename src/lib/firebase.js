@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, getDocs, getDoc, doc, updateDoc, deleteDoc,setDoc,arrayUnion } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, doc, updateDoc, deleteDoc, setDoc, arrayUnion } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -69,7 +69,7 @@ export function getCurrentUser() {
 
 //function enroll course for user use UId
 export async function enrollCourseForUser(uid, enrolledCourse) {
-//doc ref
+  //doc ref
   const userRef = doc(db, "users", uid);
 
   //ensure doc exixts and if not exist do create 

@@ -1,7 +1,18 @@
 {
+	"nav": {
+		"logoAlt": "Your Company",
+		"openMenu": "Open main menu",
+		"promo": {
+			"beforeStar": "Free Course",
+			"afterStar": "Sale Ends Soon, Get It Now"
+		},
+		"switchToArabic": "Switch to Arabic",
+		"switchToEnglish": "Switch to English"
+	},
 	"navbar": {
 		"home": "Home",
 		"courses": "Courses",
+		"my courses": "My Courses",
 		"about": "About Us",
 		"pricing": "Pricing",
 		"contact": "Contact",
