@@ -12,6 +12,8 @@ import CourseDetails from "./Courses/CourseDetails";
 import AllCourses from "./Courses/courses";
 import PayPalCheckout from "./pages/PayPalCheckout";
 import MyCourses from "./Courses/MyCourses";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import AboutUs from "./AboutUs/AboutUs";
 
 function App() {
@@ -27,8 +29,22 @@ function App() {
 				{ path: "add-course", element: <AddCoursePage /> },
 				{ path: "edit-course/:courseId", element: <EditCoursePage /> },
 				{ path: "courses/:id", element: <CourseDetails /> },
-				{ path: "checkout", element: <PayPalCheckout /> },
-				{ path: "my-courses", element: <MyCourses /> },
+				{
+					path: "checkout",
+					element: (
+						<ProtectedRoute>
+							<PayPalCheckout />
+						</ProtectedRoute>
+					),
+				},
+				{
+					path: "my-courses",
+					element: (
+						<ProtectedRoute>
+							<MyCourses />
+						</ProtectedRoute>
+					),
+				},
 				{ path: "Courses", element: <AllCourses /> },
 				{path:"about", element:<AboutUs/>},
 
@@ -38,9 +54,9 @@ function App() {
 	]);
 
 	return (
-		<>
+		<AuthProvider>
 			<RouterProvider router={router}></RouterProvider>
-		</>
+		</AuthProvider>
 	);
 }
 

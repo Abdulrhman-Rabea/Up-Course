@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import MyButton from "../Component/MyButton";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../context/AuthContext";
 
 export default function Nav() {
+	const { user, logout } = useAuth();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { i18n } = useTranslation();
 
@@ -81,12 +83,14 @@ export default function Nav() {
 									>
 										Courses
 									</Link>
-									<Link
-										to="/my-courses"
-										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-									>
-										My Courses
-									</Link>
+									{user && (
+										<Link
+											to="/my-courses"
+											className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
+										>
+											My Courses
+										</Link>
+									)}
 									<Link
 										to="/about"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
@@ -118,18 +122,37 @@ export default function Nav() {
 								</button>
 							</div>
 							<div className="hidden sm:flex items-center ml-4">
-								<Link to="register">
-									<MyButton bgColor="#e4e4e7" textColor="text-gray-800">
-										sign up
-									</MyButton>
-								</Link>
-								<div className="relative ml-3">
-									<Link to="login">
-										<MyButton bgColor="#ff9500" textColor="text-white">
-											login
-										</MyButton>
-									</Link>
-								</div>
+								{!user ? (
+									<>
+										<Link to="register">
+											<MyButton bgColor="#e4e4e7" textColor="text-gray-800">
+												sign up
+											</MyButton>
+										</Link>
+										<div className="relative ml-3">
+											<Link to="login">
+												<MyButton bgColor="#ff9500" textColor="text-white">
+													login
+												</MyButton>
+											</Link>
+										</div>
+									</>
+								) : (
+									<>
+										<span className="mr-3 text-sm">
+											Welcome, {user.displayName || user.email}
+										</span>
+										<div className="relative ml-3">
+											<MyButton
+												bgColor="#ff9500"
+												textColor="text-white"
+												onClick={logout}
+											>
+												logout
+											</MyButton>
+										</div>
+									</>
+								)}
 							</div>
 						</div>
 					</div>
@@ -152,6 +175,14 @@ export default function Nav() {
 						>
 							Courses
 						</Link>
+						{user && (
+							<Link
+								to="/my-courses"
+								className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
+							>
+								My Courses
+							</Link>
+						)}
 						<Link
 							to="/about"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
@@ -180,16 +211,32 @@ export default function Nav() {
 									? "Switch to Arabic"
 									: " switch to English"}
 							</button>
-							<Link to="login">
-								<div className="w-full text-center bg-[#ff9500] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
-									login
-								</div>
-							</Link>
-							<Link to="register">
-								<div className="w-full text-center bg-[#e4e4e7] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
-									sign up
-								</div>
-							</Link>
+							{!user ? (
+								<>
+									<Link to="login">
+										<div className="w-full text-center bg-[#ff9500] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
+											login
+										</div>
+									</Link>
+									<Link to="register">
+										<div className="w-full text-center bg-[#e4e4e7] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
+											sign up
+										</div>
+									</Link>
+								</>
+							) : (
+								<>
+									<p className="text-center mb-2">
+										Welcome, {user.displayName || user.email}
+									</p>
+									<button
+										onClick={logout}
+										className="w-full text-center bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
+									>
+										logout
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
