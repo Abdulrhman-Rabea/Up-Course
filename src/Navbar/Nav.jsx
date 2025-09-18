@@ -229,6 +229,8 @@ export default function Nav() {
 									<p className="text-center mb-2">
 										Welcome, {user.displayName || user.email}
 									</p>
+
+									
 									<button
 										onClick={logout}
 										className="w-full text-center bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
