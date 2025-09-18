@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 1rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 
@@ -45,4 +45,12 @@
 
 button:hover {
 	border-color: white;
+}
+/* Find and delete code blocks like this */
+a {
+  color: white;
+  text-decoration: inherit;
+}
+a:hover {
+  color: white; /* <-- This is the problem */
 }

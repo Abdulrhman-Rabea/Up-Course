@@ -46,7 +46,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-         <p className='text-gray-500 mt-10'>@2023 Skillbridge.All rights reserved</p>
+         <p className='text-gray-500 mt-10 text-center'>@2025 Skillbridge.All rights reserved</p>
       </div>
     </>
   );

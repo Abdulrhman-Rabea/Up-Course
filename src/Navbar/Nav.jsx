@@ -108,6 +108,12 @@ export default function Nav() {
 									>
 										Contact
 									</Link>
+									<Link
+										to="/wishlist"
+										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
+									>
+										wishlist
+									</Link>
 								</div>
 							</div>
 						</div>
@@ -174,6 +180,7 @@ export default function Nav() {
 						>
 							Courses
 						</Link>
+						
 						{user && (
 							<Link
 								to="/my-courses"
@@ -228,6 +235,8 @@ export default function Nav() {
 									<p className="text-center mb-2">
 										Welcome, {user.displayName || user.email}
 									</p>
+
+									
 									<button
 										onClick={logout}
 										className="w-full text-center bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
