@@ -11,7 +11,6 @@ function EditCoursePage() {
   const [courseData, setCourseData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
-
   // to fetch course data
   useEffect(() => {
     const fetchCourseData = async () => {
@@ -52,7 +51,8 @@ function EditCoursePage() {
         title: courseData.title,
         description: courseData.description,
         price: Number(courseData.price),
-        playlistId: courseData.playlistId
+        playlistId: courseData.playlistId,
+        category: courseData.category
 
       });
       setMessage("Course updated successfully.");
@@ -134,6 +134,27 @@ function EditCoursePage() {
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
+           {/* Add Dropdown for Category  */}
+          <div className="mb-4">
+  <label htmlFor="category" className="block text-gray-700 font-medium mb-2 text-left">
+    Category
+  </label>
+  <select
+    id="category"
+    name="category"                       
+    value={courseData.category ?? ''}       
+    onChange={handleInputChange}           
+    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+    required
+  >
+    <option value="" disabled>Choose a category</option>
+    <option value="Programming">Programming</option>
+    <option value="Graphic Design">Graphic Design</option>
+    <option value="Social Media">Social Media</option>
+    <option value="Marketing">Marketing</option>
+    <option value="Ui/UX">Ui/UX</option>
+  </select>
+</div>
 
           {/* Save Button */}
           <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-orange-600">
