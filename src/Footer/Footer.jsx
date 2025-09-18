@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 export default function Footer() {
 
   const {t} =useTranslation();
-     const year = new Date().getFullYear();
+  const year = new Date().getFullYear();
   const brand = t("footer.brand.name");
   return (
     <>
