@@ -12,7 +12,7 @@ function AddCoursePage() {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [imageFile, setImageFile] = useState(null);
-  
+  const [category, setCategory] = useState('');
   // To display message to user after submit
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -64,7 +64,8 @@ function AddCoursePage() {
         description: description,
         price: Number(price), 
         imageUrl: publicUrl, 
-        createdAt: new Date(),  
+        createdAt: new Date(),
+        category: category  
       });
 
       setMessage('Course added successfully!');
@@ -143,6 +144,25 @@ function AddCoursePage() {
               onChange={(e) => setPrice(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" 
             />
+          </div>
+
+
+          {/* Add Dropdown for Category  */}
+          <div className="mb-4">
+            <label htmlFor="category" className="block text-gray-700 font-medium mb-2 text-left">Category</label>
+            <select 
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+            >
+                <option value="" disabled>Choose a category</option>
+              <option value="Programming">Programming</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Ui/UX">Ui/UX</option>
+            </select>
           </div>
 
           {/* Image */}
