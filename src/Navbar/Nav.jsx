@@ -109,6 +109,12 @@ export default function Nav() {
 									>
 										Contact
 									</Link>
+									<Link
+										to="/wishlist"
+										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
+									>
+										wishlist
+									</Link>
 								</div>
 							</div>
 						</div>
@@ -175,6 +181,7 @@ export default function Nav() {
 						>
 							Courses
 						</Link>
+						
 						{user && (
 							<Link
 								to="/my-courses"
