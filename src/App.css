@@ -46,3 +46,11 @@
 button:hover {
 	border-color: white;
 }
+/* Find and delete code blocks like this */
+a {
+  color: white;
+  text-decoration: inherit;
+}
+a:hover {
+  color: white; /* <-- This is the problem */
+}

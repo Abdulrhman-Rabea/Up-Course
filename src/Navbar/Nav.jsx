@@ -3,7 +3,6 @@ import MyButton from "../Component/MyButton";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
-
 export default function Nav() {
         const { user, logout } = useAuth();
         const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -122,6 +121,12 @@ export default function Nav() {
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
                                                                                 {t("nav.menu.wishlist")}
+									</Link>
+									<Link
+										to="/wishlist"
+										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
+									>
+										wishlist
 									</Link>
 								</div>
 							</div>

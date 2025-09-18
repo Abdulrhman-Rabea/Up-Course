@@ -15,49 +15,58 @@ import MyCourses from "./Courses/MyCourses";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AboutUs from "./AboutUs/AboutUs";
+import Wishlist from "./pages/Wishlist"; // 1. استيراد صفحة الـ Wishlist
 
 function App() {
-	let router = createBrowserRouter([
-		{
-			path: "/",
-			element: <Layout />,
-			children: [
-				{ index: true, element: <Home /> },
-				{ path: "register", element: <Registration /> },
-				{ path: "login", element: <Login /> },
-				{ path: "AdminPage", element: <AdminPage /> },
-				{ path: "add-course", element: <AddCoursePage /> },
-				{ path: "edit-course/:courseId", element: <EditCoursePage /> },
-				{ path: "courses/:id", element: <CourseDetails /> },
-				{
-					path: "checkout",
-					element: (
-						<ProtectedRoute>
-							<PayPalCheckout />
-						</ProtectedRoute>
-					),
-				},
-				{
-					path: "my-courses",
-					element: (
-						<ProtectedRoute>
-							<MyCourses />
-						</ProtectedRoute>
-					),
-				},
-				{ path: "Courses", element: <AllCourses /> },
-				{path:"about", element:<AboutUs/>},
+    let router = createBrowserRouter([
+        {
+            path: "/",
+            element: <Layout />,
+            children: [
+                { index: true, element: <Home /> },
+                { path: "register", element: <Registration /> },
+                { path: "login", element: <Login /> },
+                { path: "AdminPage", element: <AdminPage /> },
+                { path: "add-course", element: <AddCoursePage /> },
+                { path: "edit-course/:courseId", element: <EditCoursePage /> },
+                { path: "courses/:id", element: <CourseDetails /> },
+                {
+                    path: "checkout",
+                    element: (
+                        <ProtectedRoute>
+                            <PayPalCheckout />
+                        </ProtectedRoute>
+                    ),
+                },
+                {
+                    path: "my-courses",
+                    element: (
+                        <ProtectedRoute>
+                            <MyCourses />
+                        </ProtectedRoute>
+                    ),
+                },
+                {
+                    path: "wishlist",
+                    element: (
+                        <ProtectedRoute>
+                            <Wishlist />
+                        </ProtectedRoute>
+                    ),
+                },
+                // ----------------------------------------------
+                { path: "Courses", element: <AllCourses /> },
+                { path:"about", element:<AboutUs/>},
+                { path: "*", element: <NotFound /> },
+            ],
+        },
+    ]);
 
-				{ path: "*", element: <NotFound /> },
-			],
-		},
-	]);
-
-	return (
-		<AuthProvider>
-			<RouterProvider router={router}></RouterProvider>
-		</AuthProvider>
-	);
+    return (
+        <AuthProvider>
+            <RouterProvider router={router}></RouterProvider>
+        </AuthProvider>
+    );
 }
 
 export default App;
