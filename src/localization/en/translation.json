@@ -192,6 +192,19 @@
     },
     "copyright": "© {{year}} {{brand}}. All rights reserved."
   }
+,
+  "about_page": {
+    "header_title": "About Skillbridge",
+    "header_description": "Welcome to our platform, where we are passionate about empowering individuals to master the world of design and development. We offer a wide range of online courses designed to equip learners with the skills and knowledge needed to succeed in the ever-evolving digital landscape.",
+    "achievements_title": "Achievements",
+    "achievements_description": "Our commitment to excellence has led us to achieve significant milestones along our journey. Here are some of our notable achievements.",
+    "section_title": "Provide practical skills",
+    "section_paragraph": "We focus on delivering practical skills that are relevant to the current industry demands. Our courses are designed to equip learners with the knowledge and tools needed to excel in their chosen fields.",
+    "cta_title_highlight": "Together,",
+    "cta_title_main": " let's shape the future of digital innovation",
+    "cta_description": "Join us on this exciting learning journey and unlock your potential in design and development.",
+    "cta_button": "Join Now"
+  }
 
 
 
