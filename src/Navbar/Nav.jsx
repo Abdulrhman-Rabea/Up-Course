@@ -3,7 +3,6 @@ import MyButton from "../Component/MyButton";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
-
 export default function Nav() {
 	const { user, logout } = useAuth();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);

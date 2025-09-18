@@ -1,15 +1,29 @@
 import { getAllData } from "../lib/firebase";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import MyButton from "../Component/MyButton";
 import Pagination from "../Component/pagination";
+
+const CATEGORIES = [
+	"Programming",
+	"Graphic Design",
+	"Social Media",
+	"Marketing",
+	"Ui/UX",
+];
 
 function AllCourses() {
 	const [courses, setCourses] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const navigate = useNavigate();
-
 	const itemsPerPage = 5;
+
+	// URL params
+	const [params, setParams] = useSearchParams();
+	const cat = params.get("cat") || "";
+	const q = params.get("q") || "";
+
+	const [searchInput, setSearchInput] = useState(q);
 
 	useEffect(() => {
 		async function loadCourses() {
@@ -19,22 +33,110 @@ function AllCourses() {
 		loadCourses();
 	}, []);
 
-	// حساب عدد الصفحات
-	const totalPages = Math.ceil(courses.length / itemsPerPage);
+	useEffect(() => {
+		setSearchInput(q);
+	}, [q]);
 
-	// تحديد الكورسات اللي هتظهر في الصفحة الحالية
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [cat, q, courses.length]);
+
+	useEffect(() => {
+		const id = setTimeout(() => {
+			const next = new URLSearchParams(params);
+			if (!searchInput.trim()) next.delete("q");
+			else next.set("q", searchInput.trim());
+			setParams(next, { replace: true });
+		}, 300);
+		return () => clearTimeout(id);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchInput]);
+
+	const onChangeCat = (value) => {
+		const next = new URLSearchParams(params);
+		if (!value) next.delete("cat");
+		else next.set("cat", value);
+		setParams(next);
+	};
+
+	const filtered = useMemo(() => {
+		const base = cat ? courses.filter((c) => c.category === cat) : courses;
+		if (!q.trim()) return base;
+
+		const term = q.trim().toLowerCase();
+		return base.filter((c) => {
+			const title = String(c.title || "").toLowerCase();
+			const desc = String(c.description || "").toLowerCase();
+			const category = String(c.category || "").toLowerCase();
+			return (
+				title.includes(term) || desc.includes(term) || category.includes(term)
+			);
+		});
+	}, [courses, cat, q]);
+
+	// Pagination
+	const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
 	const startIndex = (currentPage - 1) * itemsPerPage;
-	const currentCourses = courses.slice(startIndex, startIndex + itemsPerPage);
+	const currentCourses = filtered.slice(startIndex, startIndex + itemsPerPage);
 
-	// function when press Enroll >>>>
+	// Enroll
 	const handleEnroll = (course) => {
-		// navigate user to paypal check page
 		navigate("/checkout", { state: { course } });
 	};
 
+	// Clear search
+	const clearSearch = () => setSearchInput("");
+
 	return (
 		<div className="p-6">
-			{/* grid of courses */}
+			{/* Header: Title + Filters */}
+			<header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<h1 className="text-2xl font-bold">
+					{cat ? `Category: ${cat}` : "All Courses"}
+					{q ? ` — Search: “${q}”` : ""}
+				</h1>
+
+				<div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+					{/* Searchbar */}
+					<div className="relative">
+						<input
+							type="text"
+							value={searchInput}
+							onChange={(e) => setSearchInput(e.target.value)}
+							placeholder="Search courses…"
+							className="w-72 max-w-full px-4 py-2 pr-9 rounded-xl border bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+						/>
+						{searchInput && (
+							<button
+								aria-label="Clear search"
+								onClick={clearSearch}
+								className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+							>
+								×
+							</button>
+						)}
+					</div>
+
+					{/* Category dropdown */}
+					<label className="inline-flex items-center gap-3">
+						<span className="text-sm text-gray-700">Filter by category</span>
+						<select
+							value={cat}
+							onChange={(e) => onChangeCat(e.target.value)}
+							className="min-w-48 px-3 py-2 rounded-xl border bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+						>
+							<option value="">All</option>
+							{CATEGORIES.map((name) => (
+								<option key={name} value={name}>
+									{name}
+								</option>
+							))}
+						</select>
+					</label>
+				</div>
+			</header>
+
+			{/* Results grid */}
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 				{currentCourses.map((course) => (
 					<div
@@ -47,6 +149,7 @@ function AllCourses() {
 								src={course.imageUrl}
 								alt={course.title}
 								className="w-full h-full object-contain"
+								loading="lazy"
 							/>
 						</div>
 
@@ -55,6 +158,9 @@ function AllCourses() {
 							<h2 className="text-lg font-bold text-gray-900 mb-2">
 								{course.title}
 							</h2>
+
+							<p className="text-gray-600 text-sm mb-2">{course.category}</p>
+
 							<p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-3">
 								{course.description}
 							</p>
@@ -68,7 +174,7 @@ function AllCourses() {
 									</span>
 								</div>
 
-								<div className="flex gap-3">
+								<div className="flex gap-3 mt-3">
 									<MyButton bgColor="#ff9500" textColor="text-[#E4E4E7]">
 										<Link
 											to={`/courses/${course.id}`}
@@ -78,7 +184,6 @@ function AllCourses() {
 										</Link>
 									</MyButton>
 
-									{/* enroll button call handleEnroll */}
 									<MyButton
 										bgColor="#ff9500"
 										onClick={() => handleEnroll(course)}
@@ -91,6 +196,14 @@ function AllCourses() {
 					</div>
 				))}
 			</div>
+
+			{/* Empty state */}
+			{!currentCourses.length && (
+				<p className="text-gray-500 text-center mt-6">
+					No courses found{q ? ` for “${q}”` : ""}
+					{cat ? ` in ${cat}` : ""}.
+				</p>
+			)}
 
 			{/* Pagination */}
 			{totalPages > 1 && (
