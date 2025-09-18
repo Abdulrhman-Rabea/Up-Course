@@ -12,6 +12,7 @@ import CourseDetails from "./Courses/CourseDetails";
 import AllCourses from "./Courses/courses";
 import PayPalCheckout from "./pages/PayPalCheckout";
 import MyCourses from "./Courses/MyCourses";
+import AboutUs from "./AboutUs/AboutUs";
 
 function App() {
 	let router = createBrowserRouter([
@@ -29,6 +30,7 @@ function App() {
 				{ path: "checkout", element: <PayPalCheckout /> },
 				{ path: "my-courses", element: <MyCourses /> },
 				{ path: "Courses", element: <AllCourses /> },
+				{path:"about", element:<AboutUs/>},
 
 				{ path: "*", element: <NotFound /> },
 			],
