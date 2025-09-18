@@ -88,6 +88,7 @@ export default function PayPalCheckout() {
     return () => {
       try {
         buttons.close();
+      // eslint-disable-next-line no-empty, no-unused-vars
       } catch (_) {}
     };
   }, [state]);
