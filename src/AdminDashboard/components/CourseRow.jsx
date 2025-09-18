@@ -34,9 +34,9 @@ function CourseRow({ course, onDelete }) {
                     className="w-24 h-14 object-cover rounded-md"
                 />
             </td>
-            <td className="p-4 text-gray-800">{course.title}</td>
-            <td className="p-4 text-gray-500">{course.price} $</td>
-            <td className="p-4 text-gray-500 max-w-sm">{course.description} $</td>
+            <td className="p-4 text-gray-800 text-center">{course.title}</td>
+            <td className="p-4 text-gray-500 text-center">{course.price} $</td>
+            <td className="p-4 text-gray-500 max-w-sm text-center">{course.description} $</td>
             <td className="p-4 flex items-center space-x-4">
                 <Link to={`/edit-course/${course.id}`} className="text-gray-500 hover:text-orange-500">
           <EditIcon />
