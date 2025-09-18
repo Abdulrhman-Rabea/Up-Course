@@ -1,14 +1,35 @@
 {
-	"nav": {
-		"logoAlt": "Your Company",
-		"openMenu": "Open main menu",
-		"promo": {
-			"beforeStar": "Free Course",
-			"afterStar": "Sale Ends Soon, Get It Now"
-		},
-		"switchToArabic": "Switch to Arabic",
-		"switchToEnglish": "Switch to English"
-	},
+        "nav": {
+                "logoAlt": "Your Company",
+                "openMenu": "Open main menu",
+                "promo": {
+                        "beforeStar": "Free Course",
+                        "afterStar": "Sale Ends Soon, Get It Now"
+                },
+                "menu": {
+                        "home": "Home",
+                        "courses": "Courses",
+                        "myCourses": "My Courses",
+                        "about": "About Us",
+                        "pricing": "Pricing",
+                        "contact": "Contact",
+                        "wishlist": "Wishlist"
+                },
+                "auth": {
+                        "signup": "Sign Up",
+                        "login": "Login",
+                        "logout": "Logout",
+                        "welcome": "Welcome, {{name}}"
+                },
+                "language": {
+                        "short": {
+                                "en": "EN",
+                                "ar": "AR"
+                        },
+                        "switchToArabic": "Switch to Arabic",
+                        "switchToEnglish": "Switch to English"
+                }
+        },
 	"navbar": {
 		"home": "Home",
 		"courses": "Courses",
@@ -53,5 +74,128 @@
 		"month": "/month",
 		"features": "Available Features",
 		"get": "Get Started"
-	}
+	},
+
+
+	"auth": {
+    "login": {
+      "title": "Login",
+      "welcome": "Welcome back! Please log in to access your account.",
+      "email": "Email",
+      "emailPh": "Enter your email",
+      "password": "Password",
+      "passwordPh": "Enter your password",
+      "remember": "Remember me",
+      "forgot": "Forgot password?",
+      "cta": "Login",
+      "or": "OR",
+      "google": "Login with Google",
+      "noAccount": "Don't have an account?",
+      "signup": "Sign up"
+    },
+    "messages": {
+      "enterEmailPass": "Please enter email and password.",
+      "fixErrors": "Please fix the errors first.",
+      "loggedIn": "Logged in successfully!",
+      "forgotNeedEmail": "Please enter a valid email to receive the reset link.",
+      "resetSent": "Password reset email sent."
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "passRequired": "Password is required",
+      "passMin": "Password must be at least 6 characters"
+    },
+
+
+    "Testimonials":{
+		"StudentsTestimonials":"StudentsTestimonials",
+		"readFullStory":"readFullStory",
+		"desc":"The web design course provided a solid foundation for me. The instructors were knowledgeable and supportive, and the interactive learning environment was engaging. I highly recommend it!",
+                "name":"Sarah L"
+
+
+
+	},
+
+
+        "register": {
+  "title": "Register",
+  "name": "Your Name",
+  "namePh": "Enter your name",
+  "welcome": "Create your account to get started.",
+  "email": "Email",
+  "emailPh": "Enter your email",
+  "password": "Password",
+  "passwordPh": "Enter your password",
+  "repass": "Confirm Password",
+  "repassPh": "Re-enter your password",
+  "remember": "Remember me",
+  "forgot": "Forgot password?",
+  "cta": "Sign Up",
+  "or": "OR",
+  "google": "Sign up with Google",
+  "noAccount": "Don't have an account?",
+  "signup": "Create Account",
+  "Role": "User Role",
+  "student": "Student",
+  "instructor": "Instructor",
+  "Admin ID": "Admin Code",
+  "Admin ID ph": "Enter admin code",
+  "already": "Already have an account?",
+  "login": "Login"
+}
+
+
+
+
+
+
+
+
+
+  },
+
+
+  "footer": {
+    "brand": {
+      "logoAlt": "Skillbridge Logo",
+      "name": "Skillbridge"
+    },
+    "contact": {
+      "email": "hello@skillbridge.com",
+      "phone": "+20 123 456 7890",
+      "location": "Cairo, Egypt"
+    },
+    "sections": {
+      "home": {
+        "title": "Home",
+        "items": {
+          "benefits": "Benefits",
+          "courses": "Our Courses",
+          "testimonials": "Our Testimonials",
+          "faq": "Our FAQ"
+        }
+      },
+      "about": {
+        "title": "About Us",
+        "items": {
+          "company": "Company",
+          "careers": "Careers",
+          "press": "Press",
+          "news": "News"
+        }
+      },
+      "social": {
+        "title": "Social Profiles"
+      }
+    },
+    "copyright": "© {{year}} {{brand}}. All rights reserved."
+  }
+
+
+
+
+
+	
 }
