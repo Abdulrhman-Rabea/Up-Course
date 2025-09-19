@@ -306,6 +306,141 @@
       "currencySymbol": "$"
     },
     "enrolled_on": "Enrolled on: {{date}}"
+  },
+
+
+  "home": {
+    "hero": {
+      "title": "Unlock Your Creative potential",
+      "subtitle": "with Online Design and Development Courses.",
+      "learn_line": "Learn from Industry Experts and Enhance Your Skills.",
+      "cta_explore": "Explore Courses",
+      "cta_view_pricing": "view pricing"
+    },
+    "companies": {
+      "zapier": "zapier",
+      "spotify": "Spotify",
+      "zoom": "Zoom",
+      "amazon": "Amazon",
+      "adobe": "Adobe",
+      "notion": "Notion",
+      "netflix": "Netflix"
+    },
+    "video": {
+      "iframe_title": "YouTube video"
+    },
+    "benefits": {
+      "title": "Benefits",
+      "subtitle": "Learn from industry experts and enhance your skills.",
+      "items": [
+        {
+          "num": "01",
+          "title": "Flexible Learning Schedule",
+          "text": "Fit your coursework around your existing commitments."
+        },
+        {
+          "num": "02",
+          "title": "Expert Instruction",
+          "text": "Learn from industry experts with real-world experience."
+        },
+        {
+          "num": "03",
+          "title": "Diverse Course Offerings",
+          "text": "Explore a wide range of design and development courses."
+        },
+        {
+          "num": "04",
+          "title": "Updated Curriculum",
+          "text": "Access courses with up-to-date content reflecting the latest trends and industry practices."
+        },
+        {
+          "num": "05",
+          "title": "Practical Projects and Assignments",
+          "text": "Develop a portfolio showcasing your skills and abilities to potential employers."
+        },
+        {
+          "num": "06",
+          "title": "Interactive Learning Environment",
+          "text": "Collaborate with fellow learners, exchanging ideas and feedback to enhance your understanding."
+        }
+      ]
+    },
+    "courses_section": {
+      "title": "Our Courses",
+      "subtitle": "Learn from industry experts and enhance your skills.",
+      "cards": [
+        {
+          "title": "Web Design Fundamentals",
+          "duration": "4 Weeks",
+          "level": "Beginner",
+          "instructor": "John Smith",
+          "description": "Learn the fundamentals of web design, including HTML, CSS, and responsive design principles.",
+          "buttonText": "Get it Now"
+        },
+        {
+          "title": "UI/UX Design",
+          "duration": "6 Weeks",
+          "level": "Intermediate",
+          "instructor": "Emily Johnson",
+          "description": "Master the art of creating intuitive user interfaces and enhancing user experiences.",
+          "buttonText": "Get it Now"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Our Testimonials",
+      "subtitle": "Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget elit id imperdiet et.",
+      "items": [
+        {
+          "name": "Doha",
+          "text": "The web design course provided a solid foundation for me. The instructors were knowledgeable and supportive, and the interactive learning environment was engaging. I highly recommend it!"
+        },
+        {
+          "name": "Ahmed",
+          "text": "The UI/UX design course exceeded my expectations. The instructor’s expertise and practical assignments helped me improve my design skills. I feel more confident in my career now. Thank you!"
+        },
+        {
+          "name": "Hoda",
+          "text": "The mobile app development course was fantastic! The step-by-step tutorials and hands-on projects helped me grasp the concepts easily. I'm now building my own app. Great course!"
+        },
+        {
+          "name": "Abdulrhman",
+          "text": "I enrolled in the graphic design course as a beginner, and it was the perfect starting point. The instructor’s guidance and feedback improved my design abilities significantly. I'm grateful for this course!"
+        }
+      ]
+    },
+    "pricing": {
+      "title": "Our Pricing",
+      "subtitle": "Lorem ipsum dolor sit amet consectetur. Tempus tincidunt etiam eget elit id imperdiet et.",
+      "toggle": {
+        "monthly": "Monthly",
+        "yearly": "Yearly"
+      },
+      "plans": {
+        "free": "Free Plan",
+        "pro": "Pro Plan"
+      },
+      "features": {
+        "freeFeatures": [
+          "Access to selected free courses.",
+          "Limited course materials and resources.",
+          "Basic community support.",
+          "No certification upon completion.",
+          "Ad-supported platform.",
+          "Access to exclusive Pro Plan community forums.",
+          "Early access to new courses and updates."
+        ],
+        "proFeatures": [
+          "Unlimited access to all courses.",
+          "Unlimited course materials and resources.",
+          "Priority support from instructors.",
+          "Course completion certificates.",
+          "Ad-free experience.",
+          "Access to exclusive Pro Plan community forums.",
+          "Early access to new courses and updates."
+        ]
+      }
+    }
   }
 }
 
