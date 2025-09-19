@@ -4,28 +4,28 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 export default function Nav() {
-        const { user, logout } = useAuth();
-        const [isMenuOpen, setIsMenuOpen] = useState(false);
-        const { t, i18n } = useTranslation();
-        const userName = user?.displayName || user?.email;
+	const { user, logout } = useAuth();
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { t, i18n } = useTranslation();
+	const userName = user?.displayName || user?.email;
 
-        useEffect(() => {
-                document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
-        }, [i18n.language]);
+	useEffect(() => {
+		document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
+	}, [i18n.language]);
 
-        const toggleLang = () => {
-                const newLanguage = i18n.language === "en" ? "ar" : "en";
-                i18n.changeLanguage(newLanguage);
-                document.documentElement.dir = newLanguage === "ar" ? "rtl" : "ltr";
-        };
+	const toggleLang = () => {
+		const newLanguage = i18n.language === "en" ? "ar" : "en";
+		i18n.changeLanguage(newLanguage);
+		document.documentElement.dir = newLanguage === "ar" ? "rtl" : "ltr";
+	};
 
 	return (
 		<>
-                        <p className="bg-[#ff9500] text-white m-0 p-2 text-center ">
-                                {t("nav.promo.beforeStar")} {" "}
-                                <i className="fa-solid fa-star text-yellow-400"></i> {" "}
-                                {t("nav.promo.afterStar")}
-                        </p>
+			<p className="bg-[#ff9500] text-white m-0 p-2 text-center ">
+				{t("nav.promo.beforeStar")}{" "}
+				<i className="fa-solid fa-star text-yellow-400"></i>{" "}
+				{t("nav.promo.afterStar")}
+			</p>
 			<nav className="relative bg-white ">
 				<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 					<div className="relative flex h-16 items-center justify-between">
@@ -37,7 +37,7 @@ export default function Nav() {
 								aria-controls="mobile-menu"
 								aria-expanded={isMenuOpen}
 							>
-                                                                <span className="sr-only">{t("nav.openMenu")}</span>
+								<span className="sr-only">{t("nav.openMenu")}</span>
 								<svg
 									className={`block size-6 ${isMenuOpen ? "hidden" : "block"}`}
 									fill="none"
@@ -70,9 +70,9 @@ export default function Nav() {
 						</div>
 						<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 							<div className="flex shrink-0 items-center">
-                                                                <img
-                                                                        src="/images/logo.png"
-                                                                        alt={t("nav.logoAlt")}
+								<img
+									src="/images/logo.png"
+									alt={t("nav.logoAlt")}
 									className="h-8 w-auto rounded-md"
 								/>
 							</div>
@@ -82,45 +82,39 @@ export default function Nav() {
 										to="/"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
-                                                                                {t("nav.menu.home")}
+										{t("nav.menu.home")}
 									</Link>
 									<Link
 										to="/courses"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
-                                                                                {t("nav.menu.courses")}
+										{t("nav.menu.courses")}
 									</Link>
 									{user && (
 										<Link
 											to="/my-courses"
 											className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 										>
-                                                                                        {t("nav.menu.myCourses")}
+											{t("nav.menu.myCourses")}
 										</Link>
 									)}
 									<Link
 										to="/about"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
-                                                                                {t("nav.menu.about")}
+										{t("nav.menu.about")}
 									</Link>
 									<Link
 										to="/pricing"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
-                                                                                {t("nav.menu.pricing")}
+										{t("nav.menu.pricing")}
 									</Link>
 									<Link
 										to="/contact"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
 									>
-                                                                                {t("nav.menu.contact")}
-									</Link>
-									<Link
-										to="/wishlist"
-										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-									>
-                                                                                {t("nav.menu.wishlist")}
+										{t("nav.menu.contact")}
 									</Link>
 									<Link
 										to="/wishlist"
@@ -137,7 +131,9 @@ export default function Nav() {
 									onClick={toggleLang}
 									className="bg-[#ff9500] text-white px-3 py-1 rounded rounded focus:outline-none focus:ring-0 w-full disabled:opacity-50 disabled:cursor-not-allowed"
 								>
-                                                                        {i18n.language === "en" ? t("nav.language.short.ar") : t("nav.language.short.en")}
+									{i18n.language === "en"
+										? t("nav.language.short.ar")
+										: t("nav.language.short.en")}
 								</button>
 							</div>
 							<div className="hidden sm:flex items-center ml-4">
@@ -145,29 +141,29 @@ export default function Nav() {
 									<>
 										<Link to="register">
 											<MyButton bgColor="#e4e4e7" textColor="text-gray-800">
-                                                                                                {t("nav.auth.signup")}
+												{t("nav.auth.signup")}
 											</MyButton>
 										</Link>
 										<div className="relative ml-3">
 											<Link to="login">
 												<MyButton bgColor="#ff9500" textColor="text-white">
-                                                                                                        {t("nav.auth.login")}
+													{t("nav.auth.login")}
 												</MyButton>
 											</Link>
 										</div>
 									</>
 								) : (
 									<>
-                                                                                <span className="mr-3 text-sm">
-                                                                                        {t("nav.auth.welcome", { name: userName })}
-                                                                                </span>
+										<span className="mr-3 text-sm">
+											{t("nav.auth.welcome", { name: userName })}
+										</span>
 										<div className="relative ml-3">
 											<MyButton
 												bgColor="#ff9500"
 												textColor="text-white"
 												onClick={logout}
 											>
-                                                                                                {t("nav.auth.logout")}
+												{t("nav.auth.logout")}
 											</MyButton>
 										</div>
 									</>
@@ -186,40 +182,40 @@ export default function Nav() {
 							to="/"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
 						>
-                                                        {t("nav.menu.home")}
+							{t("nav.menu.home")}
 						</Link>
 						<Link
 							to="/Courses"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
 						>
-                                                        {t("nav.menu.courses")}
+							{t("nav.menu.courses")}
 						</Link>
-						
+
 						{user && (
 							<Link
 								to="/my-courses"
 								className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
 							>
-                                                                {t("nav.menu.myCourses")}
+								{t("nav.menu.myCourses")}
 							</Link>
 						)}
 						<Link
 							to="/about"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
 						>
-                                                        {t("nav.menu.about")}
+							{t("nav.menu.about")}
 						</Link>
 						<Link
 							to="/pricing"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
 						>
-                                                        {t("nav.menu.pricing")}
+							{t("nav.menu.pricing")}
 						</Link>
 						<Link
 							to="/contact"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
 						>
-                                                        {t("nav.menu.contact")}
+							{t("nav.menu.contact")}
 						</Link>
 						<hr className="my-4" />
 						<div className="px-2">
@@ -227,35 +223,34 @@ export default function Nav() {
 								onClick={toggleLang}
 								className="w-full bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
 							>
-                                                                {i18n.language === "en"
-                                                                        ? t("nav.language.switchToArabic")
-                                                                        : t("nav.language.switchToEnglish")}
+								{i18n.language === "en"
+									? t("nav.language.switchToArabic")
+									: t("nav.language.switchToEnglish")}
 							</button>
 							{!user ? (
 								<>
 									<Link to="login">
 										<div className="w-full text-center bg-[#ff9500] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
-                                                                                        {t("nav.auth.login")}
+											{t("nav.auth.login")}
 										</div>
 									</Link>
 									<Link to="register">
 										<div className="w-full text-center bg-[#e4e4e7] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
-                                                                                        {t("nav.auth.signup")}
+											{t("nav.auth.signup")}
 										</div>
 									</Link>
 								</>
 							) : (
 								<>
 									<p className="text-center mb-2">
-                                                                                {t("nav.auth.welcome", { name: userName })}
+										{t("nav.auth.welcome", { name: userName })}
 									</p>
 
-									
 									<button
 										onClick={logout}
 										className="w-full text-center bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
 									>
-                                                                                {t("nav.auth.logout")}
+										{t("nav.auth.logout")}
 									</button>
 								</>
 							)}

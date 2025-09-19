@@ -6,10 +6,23 @@ import {
 
 import { getAllData } from "../lib/firebase";
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+	Link,
+	useNavigate,
+	useSearchParams,
+	useLocation,
+} from "react-router-dom";
 import MyButton from "../Component/MyButton";
 import Pagination from "../Component/pagination";
+import { useAuth } from "../context/AuthContext";
 
+// add to fav imports
+import {
+	addCourseToFav,
+	removeCourseFromFav,
+	getUserFavCourses,
+} from "../lib/firebase";
+import { setFavorites } from "../redux/slices/wishlistSlice";
 const CATEGORIES = [
 	"Programming",
 	"Graphic Design",
@@ -22,17 +35,36 @@ function AllCourses() {
 	const [courses, setCourses] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const navigate = useNavigate();
+	const location = useLocation();
+	const { user } = useAuth();
+
 	const itemsPerPage = 5;
 
 	// Redux
 	const dispatch = useDispatch();
 	const { items: wishlistItems } = useSelector((state) => state.wishlist);
 
+	//open authmodal for fav section
+
+	const openLoginPrompt = () => {
+		sessionStorage.setItem("authModalOpen", "1");
+		sessionStorage.setItem("lastProtectedPath", location.pathname);
+		window.dispatchEvent(new CustomEvent("showLoginModal"));
+	};
+
 	// URL params
 	const [params, setParams] = useSearchParams();
 	const cat = params.get("cat") || "";
 	const q = params.get("q") || "";
 	const [searchInput, setSearchInput] = useState(q);
+	// load fav from firestore
+	useEffect(() => {
+		(async () => {
+			if (!user?.uid) return;
+			const ids = await getUserFavCourses(user.uid);
+			dispatch(setFavorites(ids));
+		})();
+	}, [user?.uid, dispatch]);
 
 	useEffect(() => {
 		async function loadCourses() {
@@ -148,16 +180,34 @@ function AllCourses() {
 			{/* Results grid */}
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 				{currentCourses.map((course) => {
-					const isSaved = wishlistItems.some((item) => item.id === course.id);
+					const isSaved = wishlistItems.includes(course.id);
 
-					const handleToggleWishlist = () => {
+					const handleToggleWishlist = async () => {
+						if (!user) {
+							openLoginPrompt();
+							return;
+						}
+
+						const id = course.id;
+
 						if (isSaved) {
-							dispatch(removeFromWishlist(course.id));
+							dispatch(removeFromWishlist(id)); // UI سريع
+							try {
+								await removeCourseFromFav(user.uid, id);
+							} catch (e) {
+								dispatch(addToWishlist(id)); // rollback
+								console.error("Failed to remove fav:", e);
+							}
 						} else {
-							dispatch(addToWishlist(course));
+							dispatch(addToWishlist(id));
+							try {
+								await addCourseToFav(user.uid, id);
+							} catch (e) {
+								dispatch(removeFromWishlist(id)); // rollback
+								console.error("Failed to add fav:", e);
+							}
 						}
 					};
-
 					return (
 						<div
 							key={course.id}
