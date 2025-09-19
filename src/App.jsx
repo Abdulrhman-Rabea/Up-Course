@@ -15,6 +15,7 @@ import MyCourses from "./Courses/MyCourses";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AboutUs from "./AboutUs/AboutUs";
+import ContactUs from "./ContactUs/ContactUs";
 import Wishlist from "./pages/Wishlist"; // 1. استيراد صفحة الـ Wishlist
 
 function App() {
@@ -26,10 +27,15 @@ function App() {
                 { index: true, element: <Home /> },
                 { path: "register", element: <Registration /> },
                 { path: "login", element: <Login /> },
+                {
+                    path
+                        : "contact", element: <ContactUs />
+                },
                 { path: "AdminPage", element: <AdminPage /> },
                 { path: "add-course", element: <AddCoursePage /> },
                 { path: "edit-course/:courseId", element: <EditCoursePage /> },
                 { path: "courses/:id", element: <CourseDetails /> },
+
                 {
                     path: "checkout",
                     element: (
@@ -56,7 +62,7 @@ function App() {
                 },
                 // ----------------------------------------------
                 { path: "Courses", element: <AllCourses /> },
-                { path:"about", element:<AboutUs/>},
+                { path: "about", element: <AboutUs /> },
                 { path: "*", element: <NotFound /> },
             ],
         },
