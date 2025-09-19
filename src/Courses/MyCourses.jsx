@@ -1,10 +1,10 @@
-
-
 import React, { useEffect, useState } from "react";
 import { getCurrentUser, getUserEnrolledCourses } from "../lib/firebase";
 import { getCoursesFromLocal, setCoursesToLocal } from "../lib/localStorage";
+import { useTranslation } from "react-i18next";
 
 export default function MyCourses() {
+    const { t } = useTranslation();
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -44,15 +44,15 @@ export default function MyCourses() {
 
     // Show while loading
     if (loading) {
-        return <div className="p-6">Loading your courses…</div>;
+        return <div className="p-6">{t('myCourses.loading')}</div>;
     }
 
     // Show if no courses
     if (!courses.length) {
         return (
             <div className="p-6">
-                <h1 className="text-2xl font-bold mb-2">My Courses</h1>
-                <p className="text-gray-600">No enrolled courses yet.</p>
+                <h1 className="text-2xl font-bold mb-2">{t('myCourses.title')}</h1>
+                <p className="text-gray-600">{t('myCourses.empty.message')}</p>
             </div>
         );
     }
@@ -61,7 +61,7 @@ export default function MyCourses() {
     return (
         <div className="p-6">
             {/* Page title */}
-            <h1 className="text-2xl font-bold mb-6">My Courses</h1>
+            <h1 className="text-2xl font-bold mb-6">{t('myCourses.title')}</h1>
             {/* Course grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {courses.map((c) => (
@@ -81,9 +81,11 @@ export default function MyCourses() {
                         {/*  Course content */}
                         <div className="p-5 flex-1 flex flex-col">
                             <h2 className="text-lg font-bold text-gray-900 mb-2">{c.title}</h2>
-                            <p className="text-sm text-gray-600 mb-3">${c.price}</p>
+                            <p className="text-sm text-gray-600 mb-3">
+                                {t('myCourses.price.currencySymbol')}{c.price}
+                            </p>
                             <p className="text-xs text-gray-500 mt-auto">
-                                Enrolled on: {new Date(c.enrolledAt).toLocaleString()}
+                                {t('myCourses.enrolled_on', { date: new Date(c.enrolledAt).toLocaleString() })}
                             </p>
                         </div>
                     </div>

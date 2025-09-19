@@ -222,6 +222,66 @@
       "location": "في مكان ما من العالم",
       "socialTitle": "حسابات التواصل الاجتماعي"
     }
+  }  ,
+  "wishlist": {
+    "title": "قائمة رغباتي",
+    "loading": "جاري التحميل…",
+    "empty": {
+      "title": "قائمة الرغبات فارغة",
+      "subtitle": "لم تحفظ أي دورات بعد. ابدأ الاستكشاف!",
+      "cta": "تصفح الدورات"
+    },
+    "card": {
+      "remove": "إزالة"
+    },
+    "price": {
+      "currencySymbol": "$"
+    }
+  },
+
+
+
+   "courses": {
+    "title_all": "كل الدورات",
+    "title_cat": "التصنيف: {{cat}}",
+    "title_search_suffix": "— البحث: “{{q}}”",
+    "search": {
+      "placeholder": "ابحث في الدورات…",
+      "clear_aria": "مسح البحث",
+      "filter_label": "تصفية حسب التصنيف",
+      "all_option": "الكل"
+    },
+    "categories": {
+      "Programming": "برمجة",
+      "Graphic Design": "تصميم جرافيك",
+      "Social Media": "وسائل التواصل الاجتماعي",
+      "Marketing": "تسويق",
+      "Ui/UX": "واجهات وتجربة المستخدم"
+    },
+    "card": {
+      "price_label": "السعر:",
+      "show_content": "عرض المحتوى",
+      "enroll": "التسجيل بالدورة"
+    },
+    "empty": {
+      "base": "لا توجد دورات",
+      "for_q": "للاستعلام “{{q}}”",
+      "in_cat": "ضمن {{cat}}"
+    }
+  },
+
+
+   "myCourses": {
+    "title": "دوراتي",
+    "loading": "جاري تحميل دوراتك…",
+    "empty": {
+      "title": "دوراتي",
+      "message": "لم تقم بالتسجيل في أي دورة بعد."
+    },
+    "price": {
+      "currencySymbol": "$"
+    },
+    "enrolled_on": "تم التسجيل في: {{date}}"
   }
 
 }
