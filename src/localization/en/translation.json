@@ -204,8 +204,67 @@
     "cta_title_main": " let's shape the future of digital innovation",
     "cta_description": "Join us on this exciting learning journey and unlock your potential in design and development.",
     "cta_button": "Join Now"
-  }
+  },
 
+    "wishlist": {
+    "title": "My Wishlist",
+    "loading": "Loading…",
+    "empty": {
+      "title": "Your Wishlist is Empty",
+      "subtitle": "You haven't saved any courses yet. Start exploring!",
+      "cta": "Browse Courses"
+    },
+    "card": {
+      "remove": "Remove"
+    },
+    "price": {
+      "currencySymbol": "$"
+    }
+  },
+
+
+
+ "courses": {
+    "title_all": "All Courses",
+    "title_cat": "Category: {{cat}}",
+    "title_search_suffix": "— Search: “{{q}}”",
+    "search": {
+      "placeholder": "Search courses…",
+      "clear_aria": "Clear search",
+      "filter_label": "Filter by category",
+      "all_option": "All"
+    },
+    "categories": {
+      "Programming": "Programming",
+      "Graphic Design": "Graphic Design",
+      "Social Media": "Social Media",
+      "Marketing": "Marketing",
+      "Ui/UX": "Ui/UX"
+    },
+    "card": {
+      "price_label": "Price:",
+      "show_content": "Show content",
+      "enroll": "Enroll"
+    },
+    "empty": {
+      "base": "No courses found",
+      "for_q": "for “{{q}}”",
+      "in_cat": "in {{cat}}"
+    }
+  },
+
+  "myCourses": {
+    "title": "My Courses",
+    "loading": "Loading your courses…",
+    "empty": {
+      "title": "My Courses",
+      "message": "No enrolled courses yet."
+    },
+    "price": {
+      "currencySymbol": "$"
+    },
+    "enrolled_on": "Enrolled on: {{date}}"
+  }
 
 
 

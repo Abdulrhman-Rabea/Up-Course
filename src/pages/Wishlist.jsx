@@ -7,8 +7,10 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getUserFavCourses, getAllData } from "../lib/firebase";
+import { useTranslation } from 'react-i18next';
 
 function Wishlist() {
+	const { t } = useTranslation();
 	const dispatch = useDispatch();
 	const { user } = useAuth();
 
@@ -50,15 +52,15 @@ function Wishlist() {
 	if (!favCourses.length) {
 		return (
 			<div className="text-center p-10">
-				<h1 className="text-3xl font-bold mb-4">Your Wishlist is Empty</h1>
+				<h1 className="text-3xl font-bold mb-4">{t("wishlist.empty.title")}</h1>
 				<p className="text-gray-600 mb-6">
-					You haven't saved any courses yet. Start exploring!
+					{t("wishlist.empty.subtitle")}
 				</p>
 				<Link
 					to="/courses"
 					className="w-full rounded-lg bg-white px-6 py-2 text-center font-bold text-orange-500 border border-orange-500 hover:bg-orange-600 hover:text-white"
 				>
-					Browse Courses
+					{t("wishlist.empty.cta")}
 				</Link>
 			</div>
 		);
@@ -66,7 +68,7 @@ function Wishlist() {
 
 	return (
 		<div className="p-6">
-			<h1 className="text-3xl font-bold mb-6 border-b pb-4">My Wishlist</h1>
+			<h1 className="text-3xl font-bold mb-6 border-b pb-4">{t("wishlist.title")}</h1>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{favCourses.map((course) => (
 					<div
@@ -83,13 +85,13 @@ function Wishlist() {
 								{course.title}
 							</h2>
 							<p className="text-xl font-bold text-orange-500 mb-4">
-								{typeof course.price === "number" ? `$${course.price}` : "$"}
+								{typeof course.price === "number" ? `${t("wishlist.price.currencySymbol")} ${course.price}` : "$"}
 							</p>
 							<button
 								onClick={() => dispatch(removeFromWishlist(course.id))}
 								className="w-full rounded-lg bg-white px-6 py-2 text-center font-bold text-orange-500 border border-orange-500 hover:bg-orange-600 hover:text-white"
 							>
-								Remove
+								{t("wishlist.card.remove")}
 							</button>
 						</div>
 					</div>
