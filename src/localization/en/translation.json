@@ -204,7 +204,49 @@
     "cta_title_main": " let's shape the future of digital innovation",
     "cta_description": "Join us on this exciting learning journey and unlock your potential in design and development.",
     "cta_button": "Join Now"
-  },
+
+  }
+  ,
+    "contactPage": {
+    "header": {
+      "title": "Contact Us",
+      "paragraph": "Welcome to SkillBridge Pricing Plan page, where we offer two comprehensive options to cater to your needs: Free and Pro. We believe in providing flexible and affordable pricing options for our services. Whether an individual looking to enhance your skills or a business seeking professional development solutions, we have a plan that suits you. Explore our pricing options below and choose the one that best fits your requirements."
+    },
+    "form": {
+      "firstNameLabel": "First Name",
+      "firstNamePlaceholder": "Enter First Name",
+      "lastNameLabel": "Last Name",
+      "lastNamePlaceholder": "Enter Last Name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your Email",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "Enter Phone Number",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Enter your Subject",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Enter your Message here...",
+      "submitButton": "Send Your Message"
+    },
+    "validation": {
+      "fnameRequired": "First name is required",
+      "lnameRequired": "Last name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email address",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number",
+      "subjectRequired": "Subject is required",
+      "messageRequired": "Message is required"
+    },
+    "sidebar": {
+      "emailAddress": "hello@skillbridge.com",
+      "phoneNumber": "+20 123 456 7890",
+      "location": "Some where in the world",
+      "socialTitle": "Social Profiles"
+    }
+  }
+
+  ,
+
 
     "wishlist": {
     "title": "My Wishlist",
@@ -400,9 +442,10 @@
       }
     }
   }
+}
 
 
 
 
 	
-}
+
