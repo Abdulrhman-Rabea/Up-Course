@@ -185,6 +185,43 @@
     "cta_title_main": " لنصنع مستقبل الابتكار الرقمي",
     "cta_description": "انضم إلينا في هذه الرحلة التعليمية المثيرة وأطلق العنان لإمكانياتك في التصميم والتطوير.",
     "cta_button": "انضم الآن"
+  },
+   "contactPage": {
+    "header": {
+      "title": "تواصل معنا",
+      "paragraph": "مرحبًا بك في صفحة خطط أسعار SkillBridge، حيث نقدم خيارين شاملين لتلبية احتياجاتك: الخطة المجانية والاحترافية. نحن نؤمن بتقديم خيارات أسعار مرنة ومناسبة لخدماتنا. سواء كنت فردًا يتطلع إلى تعزيز مهاراتك أو شركة تبحث عن حلول للتطوير المهني، لدينا خطة تناسبك. استكشف خيارات الأسعار أدناه واختر الأنسب لمتطلباتك."
+    },
+    "form": {
+      "firstNameLabel": "الاسم الأول",
+      "firstNamePlaceholder": "أدخل الاسم الأول",
+      "lastNameLabel": "الاسم الأخير",
+      "lastNamePlaceholder": "أدخل الاسم الأخير",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "أدخل رقم الهاتف",
+      "subjectLabel": "الموضوع",
+      "subjectPlaceholder": "أدخل موضوع رسالتك",
+      "messageLabel": "الرسالة",
+      "messagePlaceholder": "أدخل رسالتك هنا...",
+      "submitButton": "أرسل رسالتك"
+    },
+    "validation": {
+      "fnameRequired": "الاسم الأول مطلوب",
+      "lnameRequired": "الاسم الأخير مطلوب",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "عنوان بريد إلكتروني غير صالح",
+      "phoneRequired": "رقم الهاتف مطلوب",
+      "phoneInvalid": "رقم هاتف غير صالح",
+      "subjectRequired": "الموضوع مطلوب",
+      "messageRequired": "الرسالة مطلوبة"
+    },
+    "sidebar": {
+      "emailAddress": "hello@skillbridge.com",
+      "phoneNumber": "+20 123 456 7890",
+      "location": "في مكان ما من العالم",
+      "socialTitle": "حسابات التواصل الاجتماعي"
+    }
   }
 
 }
