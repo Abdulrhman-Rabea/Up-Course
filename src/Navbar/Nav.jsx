@@ -36,10 +36,10 @@ export default function Nav() {
 
 			{/* Navbar */}
 			<nav className="sticky top-0 z-40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-200/60 shadow-[0_1px_0_rgba(0,0,0,0.02)]">
-				<div className="mx-auto max-w-7xl px-3 md:px-6 lg:px-8">
+				<div className="mx-auto max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8">
 					<div className="relative flex h-16 items-center justify-between">
-						{/* Hamburger (Mobile + iPad) */}
-						<div className="absolute inset-y-0 nav-start flex items-center lg:hidden">
+						{/* Hamburger: phones only (< md) */}
+						<div className="absolute inset-y-0 nav-start flex items-center md:hidden">
 							<button
 								type="button"
 								onClick={() => setIsMenuOpen((s) => !s)}
@@ -79,8 +79,8 @@ export default function Nav() {
 							</button>
 						</div>
 
-						{/* Brand + Desktop menu */}
-						<div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
+						{/* Brand + Links */}
+						<div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start min-w-0">
 							{/* Logo */}
 							<div className="flex shrink-0 items-center">
 								<img
@@ -90,44 +90,44 @@ export default function Nav() {
 								/>
 							</div>
 
-							{/* Links (Desktop from lg) */}
-							<div className="hidden lg:ml-6 lg:block">
-								<div className="flex items-center gap-1">
+							{/* Links: hidden on phones; scrollable row from md; wider gaps on lg */}
+							<div className="hidden md:block md:ml-4 lg:ml-6 md:min-w-0">
+								<div className="flex items-center gap-2 lg:gap-3 overflow-x-auto no-scrollbar md:py-1">
 									<Link
 										to="/"
-										className="rounded-full px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
+										className="rounded-full px-3 lg:px-4 py-2 text-[13px] lg:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
 									>
 										{t("nav.menu.home")}
 									</Link>
 									<Link
 										to="/courses"
-										className="rounded-full px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
+										className="rounded-full px-3 lg:px-4 py-2 text-[13px] lg:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
 									>
 										{t("nav.menu.courses")}
 									</Link>
 									{user && (
 										<Link
 											to="/my-courses"
-											className="rounded-full px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
+											className="rounded-full px-3 lg:px-4 py-2 text-[13px] lg:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
 										>
 											{t("nav.menu.myCourses")}
 										</Link>
 									)}
 									<Link
 										to="/about"
-										className="rounded-full px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
+										className="rounded-full px-3 lg:px-4 py-2 text-[13px] lg:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
 									>
 										{t("nav.menu.about")}
 									</Link>
 									<Link
 										to="/contact"
-										className="rounded-full px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
+										className="rounded-full px-3 lg:px-4 py-2 text-[13px] lg:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
 									>
 										{t("nav.menu.contact")}
 									</Link>
 									<Link
 										to="/wishlist"
-										className="rounded-full px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
+										className="rounded-full px-3 lg:px-4 py-2 text-[13px] lg:text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition whitespace-nowrap"
 									>
 										{t("nav.menu.wishlist")}
 									</Link>
@@ -135,13 +135,13 @@ export default function Nav() {
 							</div>
 						</div>
 
-						{/* Right controls */}
-						<div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
-							{/* Language (Desktop from lg) */}
-							<div className="hidden lg:block">
+						{/* Right controls: show from md */}
+						<div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 md:static md:inset-auto md:ml-4 lg:ml-6 md:pr-0">
+							{/* Language */}
+							<div className="hidden md:block">
 								<button
 									onClick={toggleLang}
-									className="rounded-full bg-orange-500 px-3 py-1.5 text-white text-sm font-semibold shadow hover:bg-orange-600 active:scale-[0.98] transition focus:outline-none focus:ring-2 focus:ring-orange-500/50"
+									className="rounded-full bg-orange-500 px-3 py-1.5 text-white text-[13px] lg:text-sm font-semibold shadow hover:bg-orange-600 active:scale-[0.98] transition focus:outline-none focus:ring-2 focus:ring-orange-500/50"
 								>
 									{i18n.language === "en"
 										? t("nav.language.short.ar")
@@ -152,25 +152,28 @@ export default function Nav() {
 							{/* Theme toggle */}
 							<button
 								onClick={() => dispatch(toggleTheme())}
-								className="rounded-full bg-gray-900 text-white px-3 py-1.5 text-sm shadow hover:bg-black active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-gray-900/30"
+								className="rounded-full bg-gray-900 text-white px-3 py-1.5 text-[13px] lg:text-sm shadow hover:bg-black active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-gray-900/30"
 								aria-label="Toggle theme"
 								title="Toggle theme"
 							>
 								{mode === "dark" ? "🌞" : "🌙"}
 							</button>
 
-							{/* Auth buttons (Desktop from lg) */}
-							<div className="hidden lg:flex items-center ml-2">
+							{/* Auth */}
+							<div className="hidden md:flex items-center ml-2">
 								{!user ? (
-									<div className="flex items-center gap-4">
+									<div className="flex items-center gap-2 lg:gap-4">
 										<Link to="register">
-											<MyButton className="btn-primary w-full shadow-sm hover:shadow active:scale-[0.99]">
+											<MyButton className="btn-primary w-full shadow-sm hover:shadow active:scale-[0.99] text-[13px] lg:text-sm px-3 lg:px-4 py-1.5 lg:py-2">
 												{t("nav.auth.signup")}
 											</MyButton>
 										</Link>
-
 										<Link to="login">
-											<MyButton bgColor="#ff9500" textColor="text-white">
+											<MyButton
+												bgColor="#ff9500"
+												textColor="text-white"
+												className="btn-primary w-full shadow-sm hover:shadow active:scale-[0.99] text-[13px] lg:text-sm px-3 lg:px-4 py-1.5 lg:py-2"
+											>
 												{t("nav.auth.login")}
 											</MyButton>
 										</Link>
@@ -179,7 +182,7 @@ export default function Nav() {
 									<>
 										<span
 											id="userNameNav"
-											className="mr-3 text-sm text-gray-800"
+											className="mr-3 text-[13px] lg:text-sm text-gray-800 max-w-[160px] truncate"
 										>
 											{t("nav.auth.welcome", { name: userName })}
 										</span>
@@ -188,6 +191,7 @@ export default function Nav() {
 												<MyButton
 													bgColor="#ff9500"
 													textColor="text-white"
+													className="text-[13px] lg:text-sm px-3 lg:px-4 py-1.5 lg:py-2"
 													onClick={logout}
 												>
 													{t("nav.auth.logout")}
@@ -201,9 +205,9 @@ export default function Nav() {
 					</div>
 				</div>
 
-				{/* Mobile/iPad menu (visible < lg) */}
+				{/* Mobile menu: phones only (< md) */}
 				<div
-					className={`${isMenuOpen ? "block" : "hidden"} lg:hidden`}
+					className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}
 					id="mobile-menu"
 				>
 					<div className="px-3 pt-3 pb-6">
@@ -216,7 +220,7 @@ export default function Nav() {
 									{t("nav.menu.home")}
 								</Link>
 								<Link
-									to="/Courses"
+									to="/courses"
 									className="block rounded-lg px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
 								>
 									{t("nav.menu.courses")}
@@ -247,49 +251,6 @@ export default function Nav() {
 								>
 									{t("nav.menu.wishlist")}
 								</Link>
-							</div>
-
-							<hr className="border-gray-200/70 my-2" />
-
-							{/* Mobile controls */}
-							<div className="p-3">
-								<button
-									onClick={toggleLang}
-									className="w-full rounded-xl bg-orange-500 text-white px-4 py-2.5 my-2 text-base font-semibold shadow hover:bg-orange-600 active:scale-[0.99] transition"
-								>
-									{i18n.language === "en"
-										? t("nav.language.switchToArabic")
-										: t("nav.language.switchToEnglish")}
-								</button>
-
-								{!user ? (
-									<>
-										<Link to="login">
-											<div className="w-full text-center rounded-xl bg-orange-500 text-white px-4 py-2.5 my-2 text-base font-semibold shadow hover:bg-orange-600 active:scale-[0.99] transition">
-												{t("nav.auth.login")}
-											</div>
-										</Link>
-										<Link to="register">
-											<div className="w-full text-center rounded-xl bg-gray-100 text-gray-800 px-4 py-2.5 my-2 text-base font-medium shadow-inner hover:bg-gray-200 transition">
-												{t("nav.auth.signup")}
-											</div>
-										</Link>
-									</>
-								) : (
-									<>
-										<p className="text-center mb-2 text-gray-700">
-											{t("nav.auth.welcome", { name: userName })}
-										</p>
-										<Link to="/">
-											<button
-												onClick={logout}
-												className="w-full text-center rounded-xl bg-orange-500 text-white px-4 py-2.5 my-2 text-base font-semibold shadow hover:bg-orange-600 active:scale-[0.99] transition"
-											>
-												{t("nav.auth.logout")}
-											</button>
-										</Link>
-									</>
-								)}
 							</div>
 						</div>
 					</div>
