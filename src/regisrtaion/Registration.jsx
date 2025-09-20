@@ -3,6 +3,8 @@ import { signUpWithEmail, mapAuthError } from "../lib/auth";
 import { getFirestore, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
 const MyButton = ({ children, disabled, ...restProps }) => {
   return (
     <button
@@ -16,6 +18,8 @@ const MyButton = ({ children, disabled, ...restProps }) => {
 };
 
 function Registration() {
+  const navigate = useNavigate();
+
   const { t } = useTranslation();
   const db = getFirestore();
   const [name, setName] = useState("");
@@ -188,7 +192,7 @@ const handleSubmit = async (e) => {
       displayName: name,
     });
 
-    /////// User Role
+    // ///// User Role
     await setDoc(
       doc(db, "users", user.uid),
       {
@@ -201,8 +205,13 @@ const handleSubmit = async (e) => {
     );
 
     setSubmitOk("Email has been sent. Please check your inbox.");
-        /////////////// Should Active Email Before signin  
-       ///////////////  await signOut(getAuth());
+
+    // navigate to AdminPage or Home    
+     const target = isAdmin ? "/AdminPage" : "/Courses";
+    navigate(target, { replace: true });
+
+    // Should Active Email Before signin
+    //  await signOut(getAuth());
   } catch (e) {
     setSubmitErr(mapAuthError(e?.code));
   } finally {
