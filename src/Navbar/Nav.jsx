@@ -1,271 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import MyButton from "../Component/MyButton";
-// import { Link } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
-// import { useAuth } from "../context/AuthContext";
-// import { useSelector, useDispatch } from "react-redux";
-// import { toggleTheme } from "../redux/slices/themeSlice";
 
-// export default function Nav() {
-// 	const { user, logout } = useAuth();
-// 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-// 	const { t, i18n } = useTranslation();
-// 	const userName = user?.displayName || user?.email;
-
-// 	useEffect(() => {
-// 		document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
-// 	}, [i18n.language]);
-
-// 	const toggleLang = () => {
-// 		const newLanguage = i18n.language === "en" ? "ar" : "en";
-// 		i18n.changeLanguage(newLanguage);
-// 		document.documentElement.dir = newLanguage === "ar" ? "rtl" : "ltr";
-// 	};
-// 	const dispatch = useDispatch();
-// 	const mode = useSelector((state) => state.theme.mode);
-
-// 	return (
-// 		<>
-// 			<p className="bg-[#ff9500] text-white m-0 p-2 text-center ">
-// 				{t("nav.promo.beforeStar")}{" "}
-// 				<i className="fa-solid fa-star text-yellow-400"></i>{" "}
-// 				{t("nav.promo.afterStar")}
-// 			</p>
-// 			<nav className="relative bg-white ">
-// 				<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-// 					<div className="relative flex h-16 items-center justify-between">
-// 						<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-// 							<button
-// 								type="button"
-// 								onClick={() => setIsMenuOpen(!isMenuOpen)}
-// 								className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500"
-// 								aria-controls="mobile-menu"
-// 								aria-expanded={isMenuOpen}
-// 							>
-// 								<span className="sr-only">{t("nav.openMenu")}</span>
-// 								<svg
-// 									className={`block size-6 ${isMenuOpen ? "hidden" : "block"}`}
-// 									fill="none"
-// 									viewBox="0 0 24 24"
-// 									strokeWidth="1.5"
-// 									stroke="currentColor"
-// 									aria-hidden="true"
-// 								>
-// 									<path
-// 										strokeLinecap="round"
-// 										strokeLinejoin="round"
-// 										d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-// 									/>
-// 								</svg>
-// 								<svg
-// 									className={`size-6 ${isMenuOpen ? "block" : "hidden"}`}
-// 									fill="none"
-// 									viewBox="0 0 24 24"
-// 									strokeWidth="1.5"
-// 									stroke="currentColor"
-// 									aria-hidden="true"
-// 								>
-// 									<path
-// 										strokeLinecap="round"
-// 										strokeLinejoin="round"
-// 										d="M6 18L18 6M6 6l12 12"
-// 									/>
-// 								</svg>
-// 							</button>
-// 						</div>
-// 						<div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-// 							<div className="flex shrink-0 items-center">
-// 								<img
-// 									src="/images/logo.png"
-// 									alt={t("nav.logoAlt")}
-// 									className="h-8 w-auto rounded-md"
-// 								/>
-// 							</div>
-// 							<div className="hidden sm:ml-6 sm:block">
-// 								<div className="flex space-x-4">
-// 									<Link
-// 										to="/"
-// 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-// 									>
-// 										{t("nav.menu.home")}
-// 									</Link>
-// 									<Link
-// 										to="/courses"
-// 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-// 									>
-// 										{t("nav.menu.courses")}
-// 									</Link>
-// 									{user && (
-// 										<Link
-// 											to="/my-courses"
-// 											className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-// 										>
-// 											{t("nav.menu.myCourses")}
-// 										</Link>
-// 									)}
-// 									<Link
-// 										to="/about"
-// 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-// 									>
-// 										{t("nav.menu.about")}
-// 									</Link>
-
-// 									<Link
-// 										to="/contact"
-// 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-// 									>
-// 										{t("nav.menu.contact")}
-// 									</Link>
-// 									<Link
-// 										to="/wishlist"
-// 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-// 									>
-// 										{t("nav.menu.wishlist")}
-// 									</Link>
-// 								</div>
-// 							</div>
-// 						</div>
-// 						<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-// 							<div className="toggleLanguage hidden sm:block">
-// 								<button
-// 									onClick={toggleLang}
-// 									className="bg-[#ff9500] text-white px-3 py-1 rounded rounded focus:outline-none focus:ring-0 w-full disabled:opacity-50 disabled:cursor-not-allowed"
-// 								>
-// 									{i18n.language === "en"
-// 										? t("nav.language.short.ar")
-// 										: t("nav.language.short.en")}
-// 								</button>
-// 							</div>
-// 							<button
-// 								onClick={() => dispatch(toggleTheme())}
-// 								className="ml-2 bg-gray-800 text-white px-3 py-1 rounded focus:outline-none focus:ring-0"
-// 							>
-// 								{mode === "dark" ? "🌞" : "🌙"}
-// 							</button>
-
-// 							<div className="hidden sm:flex items-center ml-4">
-// 								{!user ? (
-// 									<>
-// 										<Link to="register">
-// 											<MyButton className="btn-primary w-full">
-// 												{t("nav.auth.signup")}
-// 											</MyButton>
-// 										</Link>
-// 										<div className="relative ml-3">
-// 											<Link to="login">
-// 												<MyButton bgColor="#ff9500" textColor="text-white">
-// 													{t("nav.auth.login")}
-// 												</MyButton>
-// 											</Link>
-// 										</div>
-// 									</>
-// 								) : (
-// 									<>
-// 										<span className="mr-3 text-sm">
-// 											{t("nav.auth.welcome", { name: userName })}
-// 										</span>
-// 										<div className="relative ml-3">
-// 											<Link to="/">
-// 												<MyButton
-// 													bgColor="#ff9500"
-// 													textColor="text-white"
-// 													onClick={logout}
-// 												>
-// 													{t("nav.auth.logout")}
-// 												</MyButton>
-// 											</Link>
-// 										</div>
-// 									</>
-// 								)}
-// 							</div>
-// 						</div>
-// 					</div>
-// 				</div>
-
-// 				<div
-// 					className={`${isMenuOpen ? "block" : "hidden"} sm:hidden`}
-// 					id="mobile-menu"
-// 				>
-// 					<div className="space-y-1 px-2 pt-2 pb-3">
-// 						<Link
-// 							to="/"
-// 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
-// 						>
-// 							{t("nav.menu.home")}
-// 						</Link>
-// 						<Link
-// 							to="/Courses"
-// 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
-// 						>
-// 							{t("nav.menu.courses")}
-// 						</Link>
-
-// 						{user && (
-// 							<Link
-// 								to="/my-courses"
-// 								className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
-// 							>
-// 								{t("nav.menu.myCourses")}
-// 							</Link>
-// 						)}
-// 						<Link
-// 							to="/about"
-// 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
-// 						>
-// 							{t("nav.menu.about")}
-// 						</Link>
-
-// 						<Link
-// 							to="/contact"
-// 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
-// 						>
-// 							{t("nav.menu.contact")}
-// 						</Link>
-// 						<hr className="my-4" />
-// 						<div className="px-2">
-// 							<button
-// 								onClick={toggleLang}
-// 								className="w-full bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
-// 							>
-// 								{i18n.language === "en"
-// 									? t("nav.language.switchToArabic")
-// 									: t("nav.language.switchToEnglish")}
-// 							</button>
-
-// 							{!user ? (
-// 								<>
-// 									<Link to="login">
-// 										<div className="w-full text-center bg-[#ff9500] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
-// 											{t("nav.auth.login")}
-// 										</div>
-// 									</Link>
-// 									<Link to="register">
-// 										<div className="w-full text-center bg-[#e4e4e7] text-gray-800 px-3 py-2 my-2 rounded text-base font-medium">
-// 											{t("nav.auth.signup")}
-// 										</div>
-// 									</Link>
-// 								</>
-// 							) : (
-// 								<>
-// 									<p className="text-center mb-2">
-// 										{t("nav.auth.welcome", { name: userName })}
-// 									</p>
-
-// 									<button
-// 										onClick={logout}
-// 										className="w-full text-center bg-[#ff9500] text-white px-3 py-2 my-2 rounded text-base font-medium"
-// 									>
-// 										{t("nav.auth.logout")}
-// 									</button>
-// 								</>
-// 							)}
-// 						</div>
-// 					</div>
-// 				</div>
-// 			</nav>
-// 		</>
-// 	);
-// }
 
 
 
@@ -307,10 +40,10 @@ export default function Nav() {
 
       {/* Navbar */}
       <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-200/60 shadow-[0_1px_0_rgba(0,0,0,0.02)]">
-        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-3 md:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            {/* Hamburger (Mobile) */}
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            {/* Hamburger (Mobile + iPad) */}
+            <div className="absolute inset-y-0 nav-start flex items-center lg:hidden">
               <button
                 type="button"
                 onClick={() => setIsMenuOpen((s) => !s)}
@@ -343,7 +76,7 @@ export default function Nav() {
             </div>
 
             {/* Brand + Desktop menu */}
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
               {/* Logo */}
               <div className="flex shrink-0 items-center">
                 <img
@@ -353,8 +86,8 @@ export default function Nav() {
                 />
               </div>
 
-              {/* Links (Desktop) */}
-              <div className="hidden sm:ml-6 sm:block">
+              {/* Links (Desktop from lg) */}
+              <div className="hidden lg:ml-6 lg:block">
                 <div className="flex items-center gap-1">
                   <Link
                     to="/"
@@ -399,9 +132,9 @@ export default function Nav() {
             </div>
 
             {/* Right controls */}
-            <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              {/* Language (Desktop) */}
-              <div className="hidden sm:block">
+            <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
+              {/* Language (Desktop from lg) */}
+              <div className="hidden lg:block">
                 <button
                   onClick={toggleLang}
                   className="rounded-full bg-orange-500 px-3 py-1.5 text-white text-sm font-semibold shadow hover:bg-orange-600 active:scale-[0.98] transition focus:outline-none focus:ring-2 focus:ring-orange-500/50"
@@ -420,26 +153,26 @@ export default function Nav() {
                 {mode === "dark" ? "🌞" : "🌙"}
               </button>
 
-              {/* Auth buttons (Desktop) */}
-              <div className="hidden sm:flex items-center ml-2">
+              {/* Auth buttons (Desktop from lg) */}
+              <div className="hidden lg:flex items-center ml-2">
                 {!user ? (
-              <div className="flex items-center gap-4">
-  <Link to="register">
-    <MyButton className="btn-primary w-full shadow-sm hover:shadow active:scale-[0.99]">
-      {t("nav.auth.signup")}
-    </MyButton>
-  </Link>
+                  <div className="flex items-center gap-4">
+                    <Link to="register">
+                      <MyButton className="btn-primary w-full shadow-sm hover:shadow active:scale-[0.99]">
+                        {t("nav.auth.signup")}
+                      </MyButton>
+                    </Link>
 
-  <Link to="login">
-    <MyButton bgColor="#ff9500" textColor="text-white">
-      {t("nav.auth.login")}
-    </MyButton>
-  </Link>
-</div>
-
+                    <Link to="login">
+                      <MyButton bgColor="#ff9500" textColor="text-white">
+                        {t("nav.auth.login")}
+                      </MyButton>
+                    </Link>
+                  </div>
                 ) : (
                   <>
-                    <span id="userNameNav" className="mr-3 text-sm text-white">
+                    {/* كان text-white فاختفى فوق خلفية بيضاء — خلّيناه رمادي داكن */}
+                    <span id="userNameNav" className="mr-3 text-sm text-gray-800">
                       {t("nav.auth.welcome", { name: userName })}
                     </span>
                     <div className="ml-2">
@@ -456,8 +189,8 @@ export default function Nav() {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        <div className={`${isMenuOpen ? "block" : "hidden"} sm:hidden`} id="mobile-menu">
+        {/* Mobile/iPad menu (visible < lg) */}
+        <div className={`${isMenuOpen ? "block" : "hidden"} lg:hidden`} id="mobile-menu">
           <div className="px-3 pt-3 pb-6">
             <div className="rounded-2xl bg-white shadow-md ring-1 ring-gray-200/70 overflow-hidden">
               <div className="space-y-1 p-2">
@@ -493,7 +226,6 @@ export default function Nav() {
                 >
                   {t("nav.menu.contact")}
                 </Link>
-
                 <Link
                   to="/wishlist"
                   className="block rounded-lg px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-100 hover:text-gray-900 transition"
@@ -531,12 +263,14 @@ export default function Nav() {
                     <p className="text-center mb-2 text-gray-700">
                       {t("nav.auth.welcome", { name: userName })}
                     </p>
+					<Link to="/">
                     <button
                       onClick={logout}
                       className="w-full text-center rounded-xl bg-orange-500 text-white px-4 py-2.5 my-2 text-base font-semibold shadow hover:bg-orange-600 active:scale-[0.99] transition"
                     >
                       {t("nav.auth.logout")}
                     </button>
+					</Link>
                   </>
                 )}
               </div>
