@@ -575,6 +575,14 @@
       "failed": "Payment failed. Please try again.",
       "errorTitle": "PayPal Error"
     }
+  },
+    "course": {
+    "price": {
+      "label": "Price:"
+    }
+  },
+  "currency": {
+    "symbol": "$"
   }
 }
 
