@@ -133,7 +133,7 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
 
 /* رماديات خفيفة */
 .bg-gray-50  { background-color: var(--muted)   !important; }
-.bg-gray-100 { background-color: #f1eee9        !important; } /* درجة وسيطة */
+.bg-gray-100 { background-color: #e9eef1        !important; } /* درجة وسيطة */
 
 .border, .border-gray-200 { border-color: var(--border) !important; }
 .shadow, .shadow-md, .shadow-lg { box-shadow: var(--shadow) !important; }
@@ -279,7 +279,7 @@ nav.relative { background-color: var(--surface); }
 /* سيب الـ Light Mode زي ما هو (اختياري لو عايز تثبيت أوفررايد صريح) */
 :not(.dark) .bg-\[\#e4e4e7\],
 :not(.dark) .bg-\[\#E4E4E7\] {
-  background-color: #e4e4e7 !important;
+  background-color: #e7561d !important;
   color: #1f2937 !important; /* قريب من text-gray-800 */
 }
 /* زرار Cancel في الداكن */
