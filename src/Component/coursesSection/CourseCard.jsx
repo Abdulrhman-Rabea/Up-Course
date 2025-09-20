@@ -11,7 +11,7 @@ export default function CourseCard({
 	buttonText,
 }) {
 	return (
-		<div className="bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition">
+		<div id="CoursesSec" className="bg-white rounded-xl border shadow-sm overflow-hidden hover:shadow-md transition">
 			{image ? (
 				<img
 					src={image}
