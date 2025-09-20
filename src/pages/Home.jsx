@@ -69,6 +69,7 @@ function Home() {
 		})();
 	}, []);
 
+
 	const { t } = useTranslation();
 	const { prices, planType } = useSelector((state) => state.pricing);
 	const dispatch = useDispatch();
@@ -104,18 +105,17 @@ function Home() {
 									onClick={() => {
 										document
 											.getElementById("CoursesSec")
-											.scrollIntoView({ behavior: "smooth" });
+											.scrollIntoView({ behavior: "smooth", block: "center",  });
 									}}
 								>
 									{t("home.hero.cta_explore")}
 								</MyButton>
 								<MyButton
-									bgColor="#E4E4E7"
-									textColor={"text-black-500"}
+									 className=" btn-primary w-auto w-full focus:outline-none focus:ring-0"
 									onClick={() => {
 										document
 											.getElementById("PriceSec")
-											.scrollIntoView({ behavior: "smooth" });
+											.scrollIntoView({ behavior: "smooth", block: "center",});
 									}}
 								>
 									{t("home.hero.cta_view_pricing")}
@@ -257,7 +257,7 @@ function Home() {
 			</CardsContainer>
 
 			{/* Courses Section */}
-			<CardsContainer
+			<CardsContainer 
 				title={<SectionTitle>{t("home.courses_section.title")}</SectionTitle>}
 				subtitle={
 					<SectionSubtitle>

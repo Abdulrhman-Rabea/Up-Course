@@ -152,7 +152,7 @@ const mode = useSelector((state) => state.theme.mode);
 								{!user ? (
 									<>
 										<Link to="register">
-											<MyButton bgColor="#e4e4e7" textColor="text-gray-800">
+											<MyButton className="btn-primary w-full">
 												{t("nav.auth.signup")}
 											</MyButton>
 										</Link>
