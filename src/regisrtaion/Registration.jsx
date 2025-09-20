@@ -227,7 +227,7 @@ const handleSubmit = async (e) => {
             <label className="block text-gray-400 text-sm font-bold mb-2">{t("auth.register.name")}</label>
             <input
               type="text"
-              name="usrname"
+              name="username"
               value={name}
               onChange={handleform}
               placeholder={t("auth.register.namePh")}
