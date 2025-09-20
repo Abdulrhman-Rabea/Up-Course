@@ -525,6 +525,56 @@
       "success": "Course updated successfully.",
       "error": "Error updating course."
     }
+  },
+
+  "checkout": {
+    "empty": {
+      "title": "Course not found",
+      "subtitle": "Please select a course to continue with checkout."
+    },
+    "header": {
+      "title": "Complete Your Purchase",
+      "subtitle": "You're just one step away from accessing your course. Choose your preferred payment method below."
+    },
+    "summary": {
+      "title": "Course Summary",
+      "badge": "Premium Course",
+      "whatsIncluded": "What's included:",
+      "features": {
+        "lifetimeAccess": "Lifetime access to course materials",
+        "certificate": "Certificate of completion",
+        "multiDevice": "Mobile and desktop access",
+        "support247": "24/7 customer support"
+      }
+    },
+    "pricing": {
+      "coursePrice": "Course price:",
+      "platformFee": "Platform fee:",
+      "total": "Total:"
+    },
+    "payment": {
+      "title": "Payment Method",
+      "secure": {
+        "title": "Secure Payment",
+        "subtitle": "Your payment information is encrypted and secure"
+      },
+      "helper": "Pay securely with PayPal or your credit/debit card",
+      "termsNote": {
+        "prefix": "By completing your purchase, you agree to our",
+        "tos": "Terms of Service",
+        "and": "and",
+        "privacy": "Privacy Policy"
+      }
+    },
+    "trust": {
+      "ssl": "SSL Secured",
+      "moneyBack": "Money Back Guarantee",
+      "support247": "24/7 Support"
+    },
+    "alerts": {
+      "failed": "Payment failed. Please try again.",
+      "errorTitle": "PayPal Error"
+    }
   }
 }
 
