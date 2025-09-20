@@ -162,7 +162,7 @@ function Login() {
   const navigateByRole = async (uid) => {
     const role = await getUserRole(uid);
     if (role === "admin") navigate("/AdminPage");
-    else navigate("/");
+    else navigate("/Courses");
   };
 
   ////////////////////// Firebase Email/Password///////////////////////////
