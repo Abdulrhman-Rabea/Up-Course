@@ -22,7 +22,7 @@ function CoursesTable() {
   const [role, setRole] = useState(null);
   const [user, setUser] = useState(null);
 
-  // get current user   
+  // get current user
   useEffect(() => {
     const auth = getAuth();
     const currentUser = auth.currentUser;
@@ -96,24 +96,43 @@ function CoursesTable() {
   }
 
   return (
-    <div className="bg-white m-6 p-6 rounded-lg shadow-sm overflow-x-auto">
-      <table className="w-full text-left">
-        <thead>
-          <tr>
-            <th className="p-4 text-sm font-bold text-gray-600 text-center">{t('coursesTable.headers.image')}</th>
-            <th className="p-4 text-sm font-bold text-gray-600 text-center">{t('coursesTable.headers.courseName')}</th>
-            <th className="p-4 text-sm font-bold text-gray-600 text-center">{t('coursesTable.headers.price')}</th>
-            <th className="p-4 text-sm font-bold text-gray-600 text-center">{t('coursesTable.headers.description')}</th>
-            <th className="p-4 text-sm font-bold text-gray-600 text-center">{t('coursesTable.headers.actions')}</th>
+    // السماح بسكرول أفقي لطيف على الموبايل + تخلص من حواف الكونتينر الصغيرة
+    <div className="bg-white m-0 md:m-6 p-0 md:p-6 rounded-none md:rounded-lg shadow-sm overflow-x-auto -mx-4 sm:mx-0">
+      <table
+        className="
+          w-full table-auto text-left
+          min-w-[720px] md:min-w-0  /* يجبر الجدول على حد أدنى للعرض في الشاشات الصغيرة */
+        "
+      >
+        <thead className="bg-gray-50">
+          <tr className="border-b border-gray-200">
+            <th className="px-2 sm:px-4 py-3 text-xs sm:text-sm font-bold text-gray-600 text-center w-[90px] sm:w-[110px]">
+              {t('coursesTable.headers.image')}
+            </th>
+            <th className="px-2 sm:px-4 py-3 text-xs sm:text-sm font-bold text-gray-600 text-center">
+              {t('coursesTable.headers.courseName')}
+            </th>
+            <th className="px-2 sm:px-4 py-3 text-xs sm:text-sm font-bold text-gray-600 text-center whitespace-nowrap w-[110px]">
+              {t('coursesTable.headers.price')}
+            </th>
+            {/* نخبي الوصف على الشاشات الصغيرة عشان الزحمة */}
+            <th className="px-2 sm:px-4 py-3 text-xs sm:text-sm font-bold text-gray-600 text-center hidden lg:table-cell">
+              {t('coursesTable.headers.description')}
+            </th>
+            <th className="px-2 sm:px-4 py-3 text-xs sm:text-sm font-bold text-gray-600 text-center whitespace-nowrap w-[140px] sm:w-[160px]">
+              {t('coursesTable.headers.actions')}
+            </th>
           </tr>
         </thead>
-        <tbody>
+
+        <tbody className="divide-y divide-gray-100">
           {courses.length > 0 ? (
             courses.map((course) => (
               <CourseRow
                 key={course.id}
                 course={course}
                 onDelete={handleDeleteCourse}
+                /* مفيش تغيير لوجيك */
               />
             ))
           ) : (
