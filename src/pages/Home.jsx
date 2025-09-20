@@ -102,6 +102,7 @@ function Home() {
 							<div className="mt-10 flex items-center justify-center gap-x-6">
 								<MyButton
 									bgColor="#ff9500"
+                  textColor="text-white"
 									onClick={() => {
 										document
 											.getElementById("CoursesSec")
