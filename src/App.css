@@ -261,13 +261,7 @@ nav.relative { background-color: var(--surface); }
   box-shadow: var(--shadow) !important;
 }
 
-/* ===== إصلاح زر Sign Up في الـ dark mode (يغطي الحالتين) ===== */
-.dark .bg-\[\#e4e4e7\],
-.dark .bg-\[\#E4E4E7\] {
-  background-color: #1a1f27 !important;         /* خلفية داكنة ناعمة */
-  color: var(--text) !important;                 /* نص فاتح من الثيم */
-  border: 1px solid var(--border) !important;    /* حدود متناسقة */
-}
+
 
 /* الغي تأثير hover:brightness علشان ما يفتحش اللون في الداكن */
 .dark .bg-\[\#e4e4e7\]:hover,
@@ -276,12 +270,7 @@ nav.relative { background-color: var(--surface); }
   background-color: #0d84b3 !important;          /* درجة أدكن بسيطة للهوفر */
 }
 
-/* سيب الـ Light Mode زي ما هو (اختياري لو عايز تثبيت أوفررايد صريح) */
-:not(.dark) .bg-\[\#e4e4e7\],
-:not(.dark) .bg-\[\#E4E4E7\] {
-  background-color: #e7561d !important;
-  color: #1f2937 !important; /* قريب من text-gray-800 */
-}
+
 /* زرار Cancel في الداكن */
 .dark .bg-gray-200 {
   background-color: #1a1f27 !important;   /* سطح داكن ناعم */
@@ -297,4 +286,59 @@ nav.relative { background-color: var(--surface); }
 /* تأكيد لون النص لو استُخدم text-gray-800 */
 .dark .text-gray-800 {
   color: var(--text) !important;
+}
+
+/* زر أساسي (نفس login) */
+.btn-primary {
+  background-color: var(--primary);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-primary:focus { outline: none; box-shadow: none; }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+/* متوافق مع الدارك تلقائيًا لأن var(--primary) ثابت والنص أبيض */
+
+
+
+
+.btn-primary{
+  background:#ff9500; color:#fff; border:1px solid transparent;
+  border-radius:.5rem; font-weight:700; padding:.5rem 1rem;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.btn-primary:hover{ filter:brightness(1.05); }
+.btn-primary:disabled{ opacity:.5; cursor:not-allowed; }
+.dark .btn-primary{ background:#ff9500; color:#fff; }
+
+
+
+
+
+
+
+/* Dark mode override للبلوك ده تحديدًا */
+.dark .bg-\[\#e4e4e7\],
+.dark .bg-\[\#E4E4E7\] {
+  background-color: #ff9500 !important;
+}
+
+/* لو العنصر عليه text-gray-800 خلّي النص أبيض في الدارك */
+.dark .bg-\[\#e4e4e7\].text-gray-800,
+.dark .bg-\[\#E4E4E7\].text-gray-800 {
+  color: #ffffff !important;
+}
+
+/* (اختياري) هوفر بسيط في الدارك */
+.dark .bg-\[\#e4e4e7\]:hover,
+.dark .bg-\[\#E4E4E7\]:hover {
+  filter: none !important;
+  background-color: #ff9f1a !important; /* درجة أدكن خفيفة */
 }

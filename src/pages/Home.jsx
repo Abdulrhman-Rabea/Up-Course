@@ -86,7 +86,7 @@ function Home() {
               <p>{t("home.hero.learn_line")}</p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <MyButton
-                  bgColor="#ff9500"
+                  className=" btn-primary w-auto w-full focus:outline-none focus:ring-0"
                   onClick={() => {
                     document
                       .getElementById("CoursesSec")
@@ -96,8 +96,7 @@ function Home() {
                   {t("home.hero.cta_explore")}
                 </MyButton>
                 <MyButton
-                  bgColor="#E4E4E7"
-                  textColor={"text-black-500"}
+                   className=" btn-primary w-auto w-full focus:outline-none focus:ring-0"
                   onClick={() => {
                     document
                       .getElementById("PriceSec")
