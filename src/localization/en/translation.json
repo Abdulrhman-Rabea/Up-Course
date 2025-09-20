@@ -305,7 +305,7 @@
     "price": {
       "currencySymbol": "$"
     },
-    "enrolled_on": "Enrolled on: {{date}}"
+    "enrolled_on": "Enrolled on: "
   },
 
 
@@ -583,7 +583,8 @@
   },
   "currency": {
     "symbol": "$"
-  }
+  },
+  " Enrolled on": "Enrolled on"
 }
 
 
