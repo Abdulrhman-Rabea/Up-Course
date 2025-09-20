@@ -281,7 +281,7 @@
     "price": {
       "currencySymbol": "$"
     },
-    "enrolled_on": "تم التسجيل في: {{date}}"
+    "enrolled_on": "تم التسجيل في:"
   },
 
 
@@ -563,6 +563,8 @@
   },
   "currency": {
     "symbol": "$"
-  }
+  },
+
+  " Enrolled on": "تم التسجيل في"
 
 }
