@@ -104,12 +104,7 @@ export default function Nav() {
 									>
 										{t("nav.menu.about")}
 									</Link>
-									<Link
-										to="/pricing"
-										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
-									>
-										{t("nav.menu.pricing")}
-									</Link>
+
 									<Link
 										to="/contact"
 										className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-gray-200 hover:text-black"
@@ -205,12 +200,7 @@ export default function Nav() {
 						>
 							{t("nav.menu.about")}
 						</Link>
-						<Link
-							to="/pricing"
-							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
-						>
-							{t("nav.menu.pricing")}
-						</Link>
+
 						<Link
 							to="/contact"
 							className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black"
