@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1rem;
   /* text-align: center; */
@@ -65,11 +65,7 @@ a:hover {
 
 
 /* ====== Root container ====== */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1rem;
-}
+
 
 /* ====== أزرار/روابط عامة ====== */
 button:hover { border-color: white; }
@@ -344,7 +340,15 @@ nav.relative { background-color: var(--surface); }
 }
 
 
+/* Light (افتراضي) */
+#userNameNav {
+  color: #000000 !important;
+}
 
+/* Dark */
+.dark #userNameNav {
+  color: #ffffff !important;
+}
 
 
 
