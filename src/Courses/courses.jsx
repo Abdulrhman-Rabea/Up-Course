@@ -30,10 +30,8 @@ const CATEGORIES = [
 	"Marketing",
 	"Ui/UX",
 ];
-import { useTranslation } from 'react-i18next';
 
 function AllCourses() {
-	const { t } = useTranslation();
 	const [courses, setCourses] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const navigate = useNavigate();
@@ -130,16 +128,13 @@ function AllCourses() {
 	// Clear search
 	const clearSearch = () => setSearchInput("");
 
-	// Translated label for current category (display only)
-	const catLabel = cat ? t(`courses.categories.${cat}`) : "";
-
 	return (
 		<div className="p-6">
 			{/* Header: Title + Filters */}
 			<header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 				<h1 className="text-2xl font-bold">
-					{cat ? t('courses.title_cat', { cat: catLabel }) : t('courses.title_all')}
-					{q ? ` ${t('courses.title_search_suffix', { q })}` : ""}
+					{cat ? `Category: ${cat}` : "All Courses"}
+					{q ? ` — Search: “${q}”` : ""}
 				</h1>
 
 				<div className="flex flex-col sm:flex-row gap-3 sm:items-center">
@@ -149,12 +144,12 @@ function AllCourses() {
 							type="text"
 							value={searchInput}
 							onChange={(e) => setSearchInput(e.target.value)}
-							placeholder={t('courses.search.placeholder')}
+							placeholder="Search courses…"
 							className="w-72 max-w-full px-4 py-2 pr-9 rounded-xl border bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
 						/>
 						{searchInput && (
 							<button
-								aria-label={t('courses.search.clear_aria')}
+								aria-label="Clear search"
 								onClick={clearSearch}
 								className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
 							>
@@ -165,16 +160,16 @@ function AllCourses() {
 
 					{/* Category dropdown */}
 					<label className="inline-flex items-center gap-3">
-						<span className="text-sm text-gray-700">{t('courses.search.filter_label')}</span>
+						<span className="text-sm text-gray-700">Filter by category</span>
 						<select
 							value={cat}
 							onChange={(e) => onChangeCat(e.target.value)}
 							className="min-w-48 px-3 py-2 rounded-xl border bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
 						>
-							<option value="">{t('courses.search.all_option')}</option>
+							<option value="">All</option>
 							{CATEGORIES.map((name) => (
 								<option key={name} value={name}>
-									{t(`courses.categories.${name}`)}
+									{name}
 								</option>
 							))}
 						</select>
@@ -258,7 +253,7 @@ function AllCourses() {
 								<div className="pt-3 border-t mt-auto">
 									<div className="mt-4 flex justify-center items-center gap-16">
 										<p className="text-lg font-bold text-gray-900 mb-2">
-											{t('courses.card.price_label')}
+											Price:
 										</p>
 										<span className="text-2xl font-bold text-orange-500">
 											${course.price}
@@ -266,18 +261,11 @@ function AllCourses() {
 									</div>
 
 									<div className="flex gap-3 mt-4">
-										<Link
-											to={`/courses/${course.id}`}
-											className="block w-full rounded bg-[#ff9500] px-4 py-2 text-center font-bold text-white hover:brightness-110 focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-										>
-											{t('courses.card.show_content')}
-										</Link>
-
 										<MyButton
 											bgColor="#ff9500"
 											onClick={() => handleEnroll(course)}
 										>
-											{t('courses.card.enroll')}
+											Enroll
 										</MyButton>
 									</div>
 								</div>
@@ -290,8 +278,8 @@ function AllCourses() {
 			{/* Empty state */}
 			{!currentCourses.length && (
 				<p className="text-gray-500 text-center mt-6">
-					{t('courses.empty.base')}{q ? ` ${t('courses.empty.for_q', { q })}` : ""}
-					{cat ? ` ${t('courses.empty.in_cat', { cat: catLabel })}` : ""}.
+					No courses found{q ? ` for “${q}”` : ""}
+					{cat ? ` in ${cat}` : ""}.
 				</p>
 			)}
 
