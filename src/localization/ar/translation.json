@@ -417,6 +417,91 @@
         ]
       }
     }
+  },
+
+
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "backToDashboard": "الرجوع إلى لوحة التحكم",
+    "savingEllipsis": "جارٍ الحفظ...",
+    "errorPrefix": "خطأ: {{message}}",
+    "companyAlt": "شركتك"
+  },
+  "sidebar": {
+    "home": "الرئيسية",
+    "courses": "الدورات",
+    "students": "الطلاب",
+    "settings": "الإعدادات"
+  },
+  "header": {
+    "title": "إدارة الدورات",
+    "addNew": "+ إضافة دورة جديدة"
+  },
+  "coursesTable": {
+    "headers": {
+      "image": "الصورة",
+      "courseName": "اسم الدورة",
+      "price": "السعر",
+      "description": "الوصف",
+      "actions": "الإجراءات"
+    },
+    "empty": "لا توجد أي دورة حتى الآن."
+  },
+  "courseRow": {
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟"
+  },
+  "addCourse": {
+    "title": "إضافة دورة جديدة",
+    "fields": {
+      "courseTitle": "عنوان الدورة",
+      "playlistId": "معرّف قائمة التشغيل",
+      "description": "الوصف",
+      "priceUSD": "السعر (دولار)",
+      "category": "الفئة",
+      "coverImage": "صورة الغلاف"
+    },
+    "category": {
+      "choose": "اختر فئة",
+      "programming": "البرمجة",
+      "graphicDesign": "التصميم الجرافيكي",
+      "socialMedia": "وسائل التواصل الاجتماعي",
+      "marketing": "التسويق",
+      "uiux": "واجهات/تجربة المستخدم"
+    },
+    "buttons": {
+      "submit": "إضافة دورة"
+    },
+    "messages": {
+      "fillRequired": "يُرجى ملء جميع الحقول المطلوبة.",
+      "success": "تمّت إضافة الدورة بنجاح!"
+    }
+  },
+  "editCourse": {
+    "title": "تعديل الدورة",
+    "notFound": "لم يتم العثور على الدورة.",
+    "errorFetching": "حدث خطأ أثناء جلب بيانات الدورة.",
+    "fields": {
+      "courseName": "اسم الدورة",
+      "playlistId": "معرّف قائمة التشغيل",
+      "description": "الوصف",
+      "priceUSD": "السعر (دولار)",
+      "category": "الفئة"
+    },
+    "category": {
+      "choose": "اختر فئة",
+      "programming": "البرمجة",
+      "graphicDesign": "التصميم الجرافيكي",
+      "socialMedia": "وسائل التواصل الاجتماعي",
+      "marketing": "التسويق",
+      "uiux": "واجهات/تجربة المستخدم"
+    },
+    "buttons": {
+      "save": "حفظ التغييرات"
+    },
+    "messages": {
+      "success": "تمّ تحديث الدورة بنجاح.",
+      "error": "حدث خطأ أثناء تحديث الدورة."
+    }
   }
 
 }

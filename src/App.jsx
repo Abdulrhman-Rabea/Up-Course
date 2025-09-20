@@ -17,7 +17,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AboutUs from "./AboutUs/AboutUs";
 import ContactUs from "./ContactUs/ContactUs";
 import Wishlist from "./pages/Wishlist"; // 1. استيراد صفحة الـ Wishlist
-
+import store from "./redux/store";
+import { Provider } from "react-redux";
 function App() {
     let router = createBrowserRouter([
         {
@@ -69,9 +70,12 @@ function App() {
     ]);
 
     return (
-        <AuthProvider>
+        <Provider store={store}>
+        <AuthProvider >
             <RouterProvider router={router}></RouterProvider>
         </AuthProvider>
+        
+        </Provider>
     );
 }
 
