@@ -3,6 +3,9 @@ import MyButton from "../Component/MyButton";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/slices/themeSlice"; 
+
 export default function Nav() {
 	const { user, logout } = useAuth();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,9 +21,14 @@ export default function Nav() {
 		i18n.changeLanguage(newLanguage);
 		document.documentElement.dir = newLanguage === "ar" ? "rtl" : "ltr";
 	};
+	const dispatch = useDispatch();
+const mode = useSelector((state) => state.theme.mode);
+
 
 	return (
 		<>
+
+	
 			<p className="bg-[#ff9500] text-white m-0 p-2 text-center ">
 				{t("nav.promo.beforeStar")}{" "}
 				<i className="fa-solid fa-star text-yellow-400"></i>{" "}
@@ -30,6 +38,7 @@ export default function Nav() {
 				<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 					<div className="relative flex h-16 items-center justify-between">
 						<div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+							
 							<button
 								type="button"
 								onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -130,7 +139,15 @@ export default function Nav() {
 										? t("nav.language.short.ar")
 										: t("nav.language.short.en")}
 								</button>
+								
 							</div>
+							<button
+  onClick={() => dispatch(toggleTheme())}
+  className="ml-2 bg-gray-800 text-white px-3 py-1 rounded focus:outline-none focus:ring-0"
+>
+  {mode === "dark" ? "🌞" : "🌙"}
+</button>
+
 							<div className="hidden sm:flex items-center ml-4">
 								{!user ? (
 									<>
@@ -217,6 +234,7 @@ export default function Nav() {
 									? t("nav.language.switchToArabic")
 									: t("nav.language.switchToEnglish")}
 							</button>
+							
 							{!user ? (
 								<>
 									<Link to="login">

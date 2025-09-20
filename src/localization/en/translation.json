@@ -441,6 +441,90 @@
         ]
       }
     }
+  },
+  
+  "common": {
+    "loading": "Loading...",
+    "backToDashboard": "Back To Dashboard",
+    "savingEllipsis": "Saving ...",
+    "errorPrefix": "Error: {{message}}",
+    "companyAlt": "Your Company"
+  },
+  "sidebar": {
+    "home": "Home",
+    "courses": "Courses",
+    "students": "Students",
+    "settings": "Settings"
+  },
+  "header": {
+    "title": "Course Managment",
+    "addNew": "+ Add New Course"
+  },
+  "coursesTable": {
+    "headers": {
+      "image": "Image",
+      "courseName": "Course Name",
+      "price": "Price",
+      "description": "Description",
+      "actions": "Actions"
+    },
+    "empty": "Don't have any course yet."
+  },
+  "courseRow": {
+    "confirmDelete": "Are you sure you want to delete \"{{title}}\"?"
+  },
+  "addCourse": {
+    "title": "Add New Course",
+    "fields": {
+      "courseTitle": "Course Title",
+      "playlistId": "Playlist ID",
+      "description": "Description",
+      "priceUSD": "Price ($)",
+      "category": "Category",
+      "coverImage": "Cover Image"
+    },
+    "category": {
+      "choose": "Choose a category",
+      "programming": "Programming",
+      "graphicDesign": "Graphic Design",
+      "socialMedia": "Social Media",
+      "marketing": "Marketing",
+      "uiux": "Ui/UX"
+    },
+    "buttons": {
+      "submit": "Add Course"
+    },
+    "messages": {
+      "fillRequired": "Please fill all required fields.",
+      "success": "Course added successfully!"
+    }
+  },
+  "editCourse": {
+    "title": "Edit Course",
+    "notFound": "Course not found.",
+    "errorFetching": "Error fetching course data.",
+    "fields": {
+      "courseName": "Course Name",
+      "playlistId": "Playlist ID",
+      "description": "Description",
+      "priceUSD": "Price ($)",
+      "category": "Category"
+    },
+    "category": {
+      "choose": "Choose a category",
+      "programming": "Programming",
+      "graphicDesign": "Graphic Design",
+      "socialMedia": "Social Media",
+      "marketing": "Marketing",
+      "uiux": "Ui/UX"
+    },
+    "buttons": {
+      "save": "Saving Changes"
+    },
+    "messages": {
+      "success": "Course updated successfully.",
+      "error": "Error updating course."
+    }
   }
 }
 
