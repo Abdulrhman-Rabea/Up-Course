@@ -42,13 +42,13 @@ function Login() {
   const [message, setMessage] = useState({
     visible: false,
     text: "",
-    type: "info", // 'info' | 'success' | 'error'
+    type: "info", 
     requireInteraction: false,
     resolve: null,
   });
   const timerRef = useRef(null);
 
-  // showMessage returns a promise that resolves when the message is closed
+  // showMessage 
   const showMessage = ({ text, type = "info", requireInteraction = false }) => {
     return new Promise((resolve) => {
       // clear any previous timer

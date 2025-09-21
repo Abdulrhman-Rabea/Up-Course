@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { fetchPlaylistVideos } from "./CallYoutubeApi";
 import { getData } from "../lib/firebase";
-import Pagination from "../Component/pagination"; // <-- adjust path to your file
+import Pagination from "../Component/pagination";
 
 export default function CourseDetails() {
 	const { id } = useParams();
