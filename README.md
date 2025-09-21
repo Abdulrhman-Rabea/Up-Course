@@ -145,14 +145,15 @@ npm run preview
 
 ---
 
-## Maintainers
+## Dev Team
 
 * [Ahmed](https://github.com/ahmedshaban-blip)
 * [Doha](https://github.com/Doha-AboElkasem)
 * Hoda
 
+--- 
+**Unlock your creative potential with Up-Course!** 
 ---
-
 ## License
 
 MIT License. See `LICENSE` for details.
