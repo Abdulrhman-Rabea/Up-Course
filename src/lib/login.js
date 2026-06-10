@@ -20,10 +20,10 @@ async function setAuthPersistence(remember) {
 ///////////////// signInWithEmailFunction /////////////////////////
 
 export async function signInWithEmail({ email, password, remember = false }) {
-    
+
     await setAuthPersistence(remember);
-    const credintial = await signInWithEmailAndPassword(auth, email, password);
-    return credintial.user;
+    const credential = await signInWithEmailAndPassword(auth, email, password);
+    return credential.user;
 }
 
 
@@ -35,8 +35,8 @@ export async function signInWithEmail({ email, password, remember = false }) {
 export async function signInWithGoogle({ remember = false } = {}) {
     await setAuthPersistence(remember);
     const provider = new GoogleAuthProvider();
-    const credintial = await signInWithPopup(auth, provider);
-    return credintial.user;
+    const credential = await signInWithPopup(auth, provider);
+    return credential.user;
 }
 
 ///////////////////// resetPasswordFunction ///////////////////////////
@@ -56,7 +56,7 @@ export function mapLoginError(code) {
         case "auth/user-not-found":
             return "No account exists with this email.";
         case "auth/wrong-password":
-        case "auth/invalid-credintialential":
+        case "auth/invalid-credential":
             return "Incorrect email or password.";
         case "auth/too-many-requests":
             return "Too many attempts. Please try again later.";
