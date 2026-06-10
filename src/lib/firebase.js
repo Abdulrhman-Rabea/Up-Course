@@ -5,7 +5,7 @@ import { getFirestore, collection, getDocs, getDoc, doc, updateDoc, deleteDoc, s
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC6bGGDpOwsoLi3zie8G3wYQg6nd5e0wjc",
+  apiKey: "AIzaSyDUgH1CH5o6vHo5wMgeUgHAKKIUWgmVtao",
   authDomain: "e-learning-35aa2.firebaseapp.com",
   projectId: "e-learning-35aa2",
   storageBucket: "e-learning-35aa2.firebasestorage.app",
