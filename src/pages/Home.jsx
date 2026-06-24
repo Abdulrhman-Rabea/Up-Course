@@ -190,7 +190,7 @@ function Home() {
 			<div className="relative overflow-hidden rounded-lg shadow-lg aspect-video">
 				<iframe
 					className="w-full h-full"
-					src="https://fxrmzsdwqelruixtjlfn.supabase.co/storage/v1/object/public/upwork/Mock_Video_for_New_Courses_Website%20(1).mp4"
+					src="https://xnikryqyxjxsgxgpiixm.supabase.co/storage/v1/object/public/upcourse/upcourse%20intro.mp4"
 					title={t("home.video.iframe_title")}
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowFullScreen
